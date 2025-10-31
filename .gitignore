@@ -1,0 +1,12 @@
+# Node
+back/node_modules/
+back/package-lock.json
+.env
+
+# Certificados PDF generados por el back
+back/certificates/*.pdf
+
+# Logs y SO
+*.log
+.DS_Store
+Thumbs.db
