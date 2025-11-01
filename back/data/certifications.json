@@ -1,0 +1,50 @@
+[
+    {
+    "id": 1,
+    "nombre": "Certificación en C++",
+    "descripcion": "Evalúa el conocimiento y la habilidad para desarrollar aplicaciones robustas y eficientes usando el lenguaje de programación C++.",
+    "ventajas": [
+        "Fundamental para desarrollo de sistemas operativos y videojuegos.",
+        "Mejora el entendimiento de la gestión de memoria."
+    ],
+    "puntajeMinimo": 75,
+    "tiempoExamen": "90 minutos",
+    "costo": 500.00
+    },
+    {
+    "id": 2,
+    "nombre": "Certificación en Python",
+    "descripcion": "Demuestra la competencia en la sintaxis de Python, sus librerías estándar y su aplicación en áreas como el análisis de datos y la automatización.",
+    "ventajas": [
+        "Alta demanda en Data Science e Inteligencia Artificial.",
+        "Facilita la automatización de tareas y scripting."
+    ],
+    "puntajeMinimo": 70,
+    "tiempoExamen": "60 minutos",
+    "costo": 450.00
+    },
+    {
+    "id": 3,
+    "nombre": "Certificación en JavaScript",
+    "descripcion": "Valida la habilidad para construir interfaces de usuario interactivas y manejar el desarrollo de 'frontend' y 'backend' mediante (Node.js).",
+    "ventajas": [
+        "Esencial para el desarrollo web moderno (Full Stack).",
+        "Permite trabajar con frameworks populares como React, Angular y Vue."
+    ],
+    "puntajeMinimo": 80,
+    "tiempoExamen": "100 minutos",
+    "costo": 800.00
+    },
+    {
+    "id": 4,
+    "nombre": "Certificación en C#",
+    "descripcion": "Certifica el dominio de C# y el framework .NET para el desarrollo de aplicaciones empresariales, web y móviles (o puntoe de venta).",
+    "ventajas": [
+        "Clave para el ecosistema de Microsoft y desarrollo en Unity (Videojuegos).",
+        "Ideal para aplicaciones de gran escala y rendimiento."
+    ],
+    "puntajeMinimo": 78,
+    "tiempoExamen": "85 minutos",
+    "costo": 650.00
+    }
+]

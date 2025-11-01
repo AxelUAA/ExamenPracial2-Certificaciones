@@ -1,0 +1,162 @@
+[
+    {
+    "id": 1,
+    "texto": "¿Qué palabra clave se utiliza para definir una clase en C++?",
+    "opciones": [
+        { "texto": "struct", "esCorrecta": false },
+        { "texto": "class", "esCorrecta": true },
+        { "texto": "type", "esCorrecta": false },
+        { "texto": "def", "esCorrecta": false }
+    ]
+    },
+    {
+    "id": 2,
+    "texto": "¿Cuál es el propósito principal de la biblioteca iostream?",
+    "opciones": [
+        { "texto": "Manipulación de archivos", "esCorrecta": false },
+        { "texto": "Entrada y salida de datos a través de la consola", "esCorrecta": true },
+        { "texto": "Operaciones matemáticas complejas", "esCorrecta": false },
+        { "texto": "Gestión de memoria dinámica", "esCorrecta": false }
+    ]
+    },
+    {
+    "id": 3,
+    "texto": "¿Cómo se declara un puntero a un entero llamado 'ptr'?",
+    "opciones": [
+        { "texto": "int* ptr;", "esCorrecta": true },
+        { "texto": "int ptr;", "esCorrecta": false },
+        { "texto": "*int ptr;", "esCorrecta": false },
+        { "texto": "pointer<int> ptr;", "esCorrecta": false }
+    ]
+    },
+    {
+    "id": 4,
+    "texto": "¿Qué operador se utiliza para la sobrecarga de operadores en una clase?",
+    "opciones": [
+        { "texto": "::", "esCorrecta": false },
+        { "texto": "->", "esCorrecta": false },
+        { "texto": "op", "esCorrecta": false },
+        { "texto": "operator", "esCorrecta": true }
+    ]
+    },
+    {
+    "id": 5,
+    "texto": "¿Qué significa el término 'polimorfismo' en el contexto de C++?",
+    "opciones": [
+        { "texto": "La habilidad de una función de tener múltiples cuerpos", "esCorrecta": false },
+        { "texto": "La capacidad de un objeto de tomar muchas formas", "esCorrecta": true },
+        { "texto": "Ocultar la implementación de los detalles", "esCorrecta": false },
+        { "texto": "Asignación de memoria en tiempo de ejecución", "esCorrecta": false }
+    ]
+    },
+    {
+    "id": 6,
+    "texto": "¿Cuál de las siguientes es una forma de asignar memoria dinámicamente en C++?",
+    "opciones": [
+        { "texto": "alloc", "esCorrecta": false },
+        { "texto": "malloc()", "esCorrecta": false },
+        { "texto": "new", "esCorrecta": true },
+        { "texto": "create", "esCorrecta": false }
+    ]
+    },
+    {
+    "id": 7,
+    "texto": "¿Qué hace la palabra clave 'const' aplicada a un método de clase?",
+    "opciones": [
+        { "texto": "Asegura que el método se ejecute más rápido", "esCorrecta": false },
+        { "texto": "Impide que el método modifique los miembros de datos de la clase", "esCorrecta": true },
+        { "texto": "Convierte el método en una función estática", "esCorrecta": false },
+        { "texto": "Permite que el método sea llamado solo por objetos constantes", "esCorrecta": false }
+    ]
+    },
+    {
+    "id": 8,
+    "texto": "¿Cuál es la forma correcta de incluir un archivo de cabecera estándar?",
+    "opciones": [
+        { "texto": "#include 'nombre.h'", "esCorrecta": false },
+        { "texto": "#include <nombre>", "esCorrecta": true },
+        { "texto": "import 'nombre';", "esCorrecta": false },
+        { "texto": "using nombre;", "esCorrecta": false }
+    ]
+    },
+    {
+    "id": 9,
+    "texto": "¿Qué estructura de datos del STL proporciona acceso rápido a elementos por clave?",
+    "opciones": [
+        { "texto": "std::vector", "esCorrecta": false },
+        { "texto": "std::list", "esCorrecta": false },
+        { "texto": "std::map", "esCorrecta": true },
+        { "texto": "std::queue", "esCorrecta": false }
+    ]
+    },
+    {
+    "id": 10,
+    "texto": "¿Qué concepto permite a una clase heredar propiedades de otra clase?",
+    "opciones": [
+        { "texto": "Encapsulamiento", "esCorrecta": false },
+        { "texto": "Abstracción", "esCorrecta": false },
+        { "texto": "Herencia", "esCorrecta": true },
+        { "texto": "Polimorfismo", "esCorrecta": false }
+    ]
+    },
+    {
+    "id": 11,
+    "texto": "¿Cuál es la función del destructor de una clase?",
+    "opciones": [
+        { "texto": "Inicializar los miembros de datos", "esCorrecta": false },
+        { "texto": "Liberar los recursos antes de que el objeto sea destruido", "esCorrecta": true },
+        { "texto": "Crear una nueva instancia del objeto", "esCorrecta": false },
+        { "texto": "Realizar copias de objetos", "esCorrecta": false }
+    ]
+    },
+    {
+    "id": 12,
+    "texto": "¿Qué operador se utiliza para desreferenciar un puntero (acceder al valor apuntado)?",
+    "opciones": [
+        { "texto": "&", "esCorrecta": false },
+        { "texto": ".", "esCorrecta": false },
+        { "texto": "*", "esCorrecta": true },
+        { "texto": "->", "esCorrecta": false }
+    ]
+    },
+    {
+    "id": 13,
+    "texto": "¿Cuál es el tipo de dato que se utiliza para devolver un valor de una función que no devuelve nada?",
+    "opciones": [
+        { "texto": "null", "esCorrecta": false },
+        { "texto": "void", "esCorrecta": true },
+        { "texto": "none", "esCorrecta": false },
+        { "texto": "int", "esCorrecta": false }
+    ]
+    },
+    {
+    "id": 14,
+    "texto": "¿Cómo se conoce a la capacidad de una función o método para actuar sobre diferentes tipos de datos?",
+    "opciones": [
+        { "texto": "Plantillas (Templates)", "esCorrecta": true },
+        { "texto": "Herencia", "esCorrecta": false },
+        { "texto": "Composición", "esCorrecta": false },
+        { "texto": "Delegación", "esCorrecta": false }
+    ]
+    },
+    {
+    "id": 15,
+    "texto": "¿Cuál es el operador de ámbito (scope resolution operator) en C++?",
+    "opciones": [
+        { "texto": ".", "esCorrecta": false },
+        { "texto": "->", "esCorrecta": false },
+        { "texto": "::", "esCorrecta": true },
+        { "texto": ":", "esCorrecta": false }
+    ]
+    },
+    {
+    "id": 16,
+    "texto": "¿Qué ocurre si no liberas la memoria asignada con 'new'?",
+    "opciones": [
+        { "texto": "El programa falla inmediatamente", "esCorrecta": false },
+        { "texto": "La memoria se libera automáticamente al salir del bloque", "esCorrecta": false },
+        { "texto": "Ocurre una 'fuga de memoria' (memory leak)", "esCorrecta": true },
+        { "texto": "El compilador genera una advertencia", "esCorrecta": false }
+    ]
+}
+]
