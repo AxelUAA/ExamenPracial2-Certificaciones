@@ -6,7 +6,7 @@ const PAYMENTS = require("../data/payments");
 
 // POST /api/auth/login
 async function login(req, res) {
-  const { cuenta, password } = req.body || {};
+  const { cuenta, contrasena } = req.body || {};
   const user = USERS.find(u => u.cuenta === cuenta && u.password === password);
   if (!user) return res.status(401).json({ error: "Credenciales inválidas" });
 
