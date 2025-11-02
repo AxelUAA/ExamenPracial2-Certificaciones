@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>CertifyApp - Iniciar Sesión</title>
+  <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body class="login-page">
+  <div class="login-container">
+    <h2>Iniciar Sesión</h2>
+    <form id="loginForm">
+      <label for="cuenta">Usuario:</label>
+      <input type="text" id="cuenta" name="cuenta" required>
+
+      <label for="contrasena">Contraseña:</label>
+      <input type="password" id="contrasena" name="contrasena" required>
+
+      <button type="submit">Ingresar</button>
+    </form>
+
+    <p id="errorMsg" class="error"></p>
+  </div>
+
+  <script>
+    const form = document.getElementById("loginForm");
+    const errorMsg = document.getElementById("errorMsg");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const cuenta = document.getElementById("cuenta").value.trim();
+      const contrasena = document.getElementById("contrasena").value.trim();
+
+      try {
+        const res = await fetch("http://localhost:3000/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ cuenta, contrasena })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          errorMsg.textContent = data.error || "Error al iniciar sesión.";
+          return;
+        }
+
+        // Guardar token y usuario en localStorage
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+
+        // Redirigir al menú principal
+        window.location.href = "menu.html";
+      } catch (err) {
+        errorMsg.textContent = "Error de conexión con el servidor.";
+      }
+    });
+  </script>
+</body>
+</html>
