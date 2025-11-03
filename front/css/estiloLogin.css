@@ -1,0 +1,130 @@
+:root{
+  --brand: #1f6feb;
+  --brand-2: #a777e3;
+  --brand-3: #6e8efb;
+  --text: #0f172a;
+  --muted: #475569;
+  --card: #ffffff;
+  --ring: rgba(31,111,235,.25);
+}
+
+@media (prefers-color-scheme: dark){
+  :root{
+    --text: #e5e7eb;
+    --muted: #94a3b8;
+    --card: #0f172a;
+  }
+}
+
+#login .container{max-width: 900px; margin:0 auto; padding:0 16px;}
+#login .btn{
+  display:inline-block; font-weight:700; text-decoration:none;
+  padding:12px 18px; border-radius:12px; transition:.18s ease; border:0;
+  box-shadow:0 10px 24px rgba(0,0,0,.08); cursor:pointer;
+}
+#login .btn:hover{ transform: translateY(-1px); }
+#login .btn:focus-visible{ outline:3px solid var(--ring); outline-offset:2px; }
+#login .btn--primary{ background:#111827; color:#fff; }
+#login .btn--ghost{ background:transparent; color:#fff; border:2px solid #fff; }
+
+/* Header pegajoso como en el home (si usas el mismo nav) */
+#login .site-header{
+  position:sticky; top:0; z-index:10;
+  backdrop-filter:saturate(1.2) blur(6px);
+  background:linear-gradient(180deg, rgba(11,16,32,.55), rgba(11,16,32,0));
+}
+
+/* Banda hero con degradado (matching del index) */
+#login .login-hero{
+  --rad1: radial-gradient(1200px 600px at 10% -10%, rgba(110,142,251,.25), transparent 60%);
+  --rad2: radial-gradient(900px 500px at 110% 10%, rgba(167,119,227,.25), transparent 55%);
+  background:
+    var(--rad1),
+    var(--rad2),
+    linear-gradient(135deg, var(--brand) 0%, var(--brand-3) 50%, var(--brand-2) 100%);
+  color:#fff;
+  padding:40px 0 24px;
+}
+#login .login-hero__top{
+  display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
+}
+#login .backbar{margin:0 0 8px;}
+#login .login-hero h1{margin:8px 0 6px; font-size:clamp(26px,5vw,36px); line-height:1.1;}
+#login .login-hero p{margin:0; opacity:.95}
+
+/* Contenedor del formulario */
+#login .login-wrap{
+  padding:28px 0 54px;
+  display:grid; place-items:center;
+}
+
+/* Card del login (glass) */
+#login .login-card{
+  width:min(560px, 100%);
+  background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.92));
+  border:1px solid rgba(15,23,42,.08);
+  color:var(--text);
+  border-radius:16px; padding:22px 20px 18px;
+  box-shadow:0 16px 32px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.45);
+  backdrop-filter: blur(6px);
+}
+
+#login .login-card h2{margin:0 0 12px; font-size:22px;}
+#login .login-card label{display:block; font-weight:600; margin:10px 0 6px;}
+#login .login-card input{
+  width:100%; padding:12px 12px; border-radius:12px; border:1px solid #e5e7eb;
+  background:#fff; color:#111827; transition:border-color .15s ease, box-shadow .15s ease;
+}
+#login .login-card input:focus{
+  outline:none; border-color: var(--brand);
+  box-shadow: 0 0 0 4px var(--ring);
+}
+
+#login .login-actions{
+  display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:14px;
+}
+#login .error{color:#ef4444; margin:8px 0 0; font-weight:600;}
+#login .note{color:var(--muted); font-size:.95rem;}
+
+/* Responsive */
+@media (max-width: 720px){
+  #login .login-actions{ flex-direction:column; align-items:stretch; }
+  #login .btn--primary{ width:100%; text-align:center; }
+}
+
+/* Input group (password toggle) */
+.input-group{ position:relative; display:flex; align-items:center }
+.input-group input{ padding-right:46px }
+.toggle-password{
+  position:absolute; right:8px; top:50%; transform:translateY(-50%);
+  background:transparent; border:0; cursor:pointer; font-size:16px; line-height:1;
+  padding:6px; border-radius:6px; color:#0f172a; opacity:.8;
+}
+.toggle-password:focus{ outline:2px solid rgba(31,111,235,.18) }
+
+/* ====== Header / Nav fixes for login page ====== */
+header.site-header, #login .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: linear-gradient(180deg, rgba(11,16,32,.95), rgba(11,16,32,.85));
+}
+#login .header-bar, header .header-bar{
+  display:flex; align-items:center; justify-content:space-between;
+  max-width:1100px; margin:0 auto; padding:10px 16px;
+}
+header .brand, #login .brand{ display:flex; align-items:center; gap:10px; }
+header .brand img, #login .brand img{ height:36px; width:auto; display:block; }
+
+/* Remove bullets if any nav uses lists */
+header nav ul, #login nav ul{ list-style:none; margin:0; padding:0; display:flex; gap:12px; align-items:center; }
+header nav ul li, #login nav ul li{ margin:0 }
+header nav a, #login nav a{ color:#fff; text-decoration:none; font-weight:600; padding:6px 8px }
+
+@media (max-width:700px){
+  #login .header-bar, header .header-bar{ flex-wrap:wrap }
+  header nav ul, #login nav ul{ flex-wrap:wrap; gap:8px }
+}
+
+/* Centrar el texto del footer en la página de login */
+#login .site-footer .container{ text-align:center }

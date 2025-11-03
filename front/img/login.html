@@ -1,62 +1,101 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>CertifyApp - Iniciar Sesión</title>
-  <link rel="stylesheet" href="../css/estilos.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DevBadge — Iniciar sesión</title>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="../css/estiloLogin.css" />
+
+  <!-- JS base del front -->
   <script defer src="../js/api.js"></script>
   <script defer src="../js/ui.js"></script>
+  <!-- Manejo del submit, guarda sesión y redirige -->
   <script defer src="../js/auth.js"></script>
 </head>
-<body class="login-page">
-  <div class="login-container">
-    <h2>Iniciar Sesión</h2>
-    <form id="loginForm">
-      <label for="cuenta">Usuario:</label>
-      <input type="text" id="cuenta" name="cuenta" required>
+<body class="login-page" id="login">
+  <!-- Header simple sin botón de regreso -->
+  <header class="site-header site-header--login">
+    <div class="container header-bar">
+      <a class="brand" href="./index.html" aria-label="Inicio">
+        <img class="brand__logo" src="../img/imagenes/logoDevBadge.png" alt="DevBadge"
+             onerror="this.replaceWith(document.createTextNode('DevBadge'));">
+      </a>
+    </div>
+  </header>
 
-      <label for="contrasena">Contraseña:</label>
-      <input type="password" id="contrasena" name="contrasena" required>
+  <main>
+    <!-- Banda superior / hero -->
+    <section class="login-hero">
+      <div class="container">
+        <h1>Iniciar sesión</h1>
+        <p>Accede para presentar tus certificaciones en DevBadge.</p>
+      </div>
+    </section>
 
-      <button type="submit">Ingresar</button>
-    </form>
+    <!-- Card del formulario -->
+    <section class="login-wrap container" aria-labelledby="tituloLogin">
+      <form id="loginForm" class="login-card" novalidate>
+        <h2 id="tituloLogin">Bienvenido</h2>
 
-    <p id="errorMsg" class="error"></p>
-  </div>
+        <label for="cuenta">Usuario</label>
+        <input id="cuenta" name="cuenta" type="text" autocomplete="username"
+               placeholder="Usuario" required />
+
+   <label for="password">Contraseña</label>
+        
+        <div class="input-group">
+          <input id="password" name="password" type="password" autocomplete="current-password"
+                 placeholder="********" required />
+          <button type="button" class="toggle-password" aria-pressed="false" aria-label="Mostrar contraseña">Mostrar</button>
+        </div>
+
+        <div class="login-actions">
+          <span class="note">¿No tienes cuenta? Solicítala al administrador.</span>
+          <button class="btn btn--primary" type="submit">Entrar</button>
+        </div>
+
+        <!-- auth.js pintará aquí los errores -->
+        <p id="loginError" class="error" hidden aria-live="polite"></p>
+      </form>
+
+      <!-- Botón de regresar ABAJO del formulario -->
+     <div class="login-backbar">
+        <a class="btn back-btn" href="./index.html"
+        onclick="if(history.length>1){event.preventDefault();history.back();}">
+      ← Regresar
+        </a>
+      </div>
+
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>© <span id="year"></span> DevBadge. Todos los derechos reservados.</small>
+    </div>
+  </footer>
 
   <script>
-    const form = document.getElementById("loginForm");
-    const errorMsg = document.getElementById("errorMsg");
+    // año automático del footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script>
+    // Toggle mostrar/ocultar contraseña (accesible)
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggle = document.querySelector('.toggle-password');
+      const pwd = document.getElementById('password');
+      if (!toggle || !pwd) return;
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const cuenta = document.getElementById("cuenta").value.trim();
-      const contrasena = document.getElementById("contrasena").value.trim();
-
-      try {
-        const res = await fetch("http://localhost:3000/api/auth/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ cuenta, contrasena })
-        });
-
-        const data = await res.json();
-
-        if (!res.ok) {
-          errorMsg.textContent = data.error || "Error al iniciar sesión.";
-          return;
-        }
-
-        // Guardar token y usuario en localStorage
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-
-        // Redirigir al menú principal
-        window.location.href = "menu.html";
-      } catch (err) {
-        errorMsg.textContent = "Error de conexión con el servidor.";
-      }
+      toggle.addEventListener('click', () => {
+        const isPwd = pwd.type === 'password';
+        // si isPwd === true, cambiaremos a texto (mostrar)
+        pwd.type = isPwd ? 'text' : 'password';
+        toggle.setAttribute('aria-pressed', String(isPwd));
+        toggle.setAttribute('aria-label', isPwd ? 'Ocultar contraseña' : 'Mostrar contraseña');
+        toggle.textContent = isPwd ? 'Ocultar' : 'Mostrar';
+      });
     });
   </script>
 </body>

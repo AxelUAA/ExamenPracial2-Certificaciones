@@ -26,6 +26,25 @@ header nav a.activo {
   text-decoration: underline;
 }
 
+/* Reset para listas en la navegación (evita bullets y espacio) */
+header nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+header nav ul li { margin: 0; }
+header .brand img{ height:36px; width:auto; display:block; }
+
+/* Ajuste responsivo: apilar cuando el ancho es pequeño */
+@media (max-width:700px){
+  header{ padding: 0.5rem 1rem; }
+  header nav{ flex-direction: column; align-items: flex-start; gap:8px }
+  header nav ul{ flex-wrap:wrap }
+}
+
 .contenedor {
   width: 90%;
   max-width: 1200px;
@@ -160,6 +179,11 @@ header nav a.activo {
 .login-page .error {
   color: red;
   margin-top: 10px;
+}
+
+/* Centrar texto del footer en todas las páginas que usan este CSS */
+.site-footer .container {
+  text-align: center;
 }
 
 
