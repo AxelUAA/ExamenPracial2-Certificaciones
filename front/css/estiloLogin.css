@@ -6,6 +6,7 @@
   --muted: #475569;
   --card: #ffffff;
   --ring: rgba(31,111,235,.25);
+  --font-family: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 @media (prefers-color-scheme: dark){
@@ -17,6 +18,7 @@
 }
 
 #login .container{max-width: 900px; margin:0 auto; padding:0 16px;}
+#login, body{ font-family:var(--font-family); font-size:16px; color:var(--text); }
 #login .btn{
   display:inline-block; font-weight:700; text-decoration:none;
   padding:12px 18px; border-radius:12px; transition:.18s ease; border:0;
@@ -125,6 +127,12 @@ header nav a, #login nav a{ color:#fff; text-decoration:none; font-weight:600; p
   #login .header-bar, header .header-bar{ flex-wrap:wrap }
   header nav ul, #login nav ul{ flex-wrap:wrap; gap:8px }
 }
+
+/* THEME OVERLAY - login adjustments for unified look */
+#login{ background: linear-gradient(180deg, rgba(6,12,28,0.98), rgba(10,18,34,1)); color:var(--text, #e9f2ff) }
+#login .login-card{ background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)); border-radius:14px }
+#login .btn--primary{ background: linear-gradient(90deg,#2ea6ff,#6b5ce8); box-shadow:0 12px 30px rgba(46,166,255,0.08) }
+
 
 /* Centrar el texto del footer en la página de login */
 #login .site-footer .container{ text-align:center }

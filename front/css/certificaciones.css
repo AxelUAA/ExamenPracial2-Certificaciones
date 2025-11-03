@@ -1,6 +1,6 @@
 /* === Página de Certificaciones === */
 body {
-  font-family: "Segoe UI", sans-serif;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
   background: linear-gradient(135deg, #203591, #562784);
   margin: 0;
   color: #f5f6fa;
@@ -36,13 +36,15 @@ body {
 
 /* Efecto vidrio para las cards */
 .card {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
+  /* dark glass to improve text contrast */
+  background: rgba(10,18,34,0.6);
+  backdrop-filter: blur(10px);
   border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 10px 40px rgba(2,6,20,0.6);
   padding: 1.8rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255,255,255,0.04);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #e8f0fb; /* ensure readable text */
 }
 
 .card:hover {
@@ -55,7 +57,6 @@ body {
   color: #ffffff;
   font-size: 1.3rem;
   margin-bottom: 0.8rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   padding-bottom: 0.5rem;
 }
 
@@ -63,7 +64,7 @@ body {
 .card ul {
   margin: 0.8rem 0 1rem;
   padding-left: 20px;
-  color: #e0e0e0;
+  color: rgba(230,240,255,0.9);
 }
 
 /* === Botones === */
@@ -106,3 +107,9 @@ body {
   font-size: 0.9rem;
   text-align: center;
 }
+
+/* THEME TWEAK: unify with main theme */
+.container{ max-width:1100px; margin:0 auto }
+.card{ border-radius:14px; background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); }
+.section__title{ font-family: inherit }
+

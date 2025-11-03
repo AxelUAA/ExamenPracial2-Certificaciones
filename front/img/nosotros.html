@@ -1,15 +1,44 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Nosotros</title>
+	<link rel="stylesheet" href="../css/estilosIndex.css">
 	<link rel="stylesheet" href="../css/estilos.css">
 	<script defer src="../js/api.js"></script>
 	<script defer src="../js/ui.js"></script>
 </head>
 <body>
-	<!-- Contenido de nosotros pendiente -->
+	<header class="site-header">
+		<nav class="nav container" aria-label="Principal">
+			<a class="brand" href="./index.html">
+				<img class="brand__logo" src="/front/img/imagenes/logoDevBadge.png" alt="Logo de la empresa">
+				<span class="brand__name">DevBadge</span>
+			</a>
+			<ul class="nav__links">
+				<li><a href="./index.html">Inicio</a></li>
+				<li><a href="./certificaciones.html">Certificaciones</a></li>
+				<li><a class="active" href="./nosotros.html">Nosotros</a></li>
+				<li><a href="./contacto.html">Contacto</a></li>
+				<li id="nav-auth"><a href="./login.html">Iniciar sesión</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main class="container section">
+		<h1 class="section__title">Sobre Nosotros</h1>
+		<p class="intro">Aquí puedes introducir la información de tu equipo, misión y visión. Contenido pendiente.</p>
+	</main>
+
+	<footer class="site-footer">
+		<div class="container">
+			<small>© <span id="year"></span> DevBadge. Todos los derechos reservados.</small>
+		</div>
+	</footer>
+
+	<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
 

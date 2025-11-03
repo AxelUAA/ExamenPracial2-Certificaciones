@@ -7,6 +7,7 @@
   --muted: #475569;
   --card: #ffffff;
   --ring: rgba(31,111,235,.25);
+  --font-family: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 /* Modo oscuro automático */
@@ -21,6 +22,7 @@
 
 /* Utilidades locales */
 #home .container{max-width:1100px;margin:0 auto;padding:0 16px;}
+#home, body{ font-family:var(--font-family); font-size:16px; color:var(--text); }
 #home .btn{
   display:inline-block; font-weight:700; text-decoration:none;
   padding:12px 18px; border-radius:12px; transition:.18s ease; border:0;
@@ -101,21 +103,22 @@
   display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:18px;
 }
 #home .card{
-  background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.9));
-  border:1px solid rgba(15,23,42,.06);
-  color:var(--text); border-radius:16px; padding:18px 18px 16px;
-  box-shadow:0 16px 32px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.45);
-  backdrop-filter: blur(6px);
+  /* dark glass variant for index cards to keep text readable */
+  background: rgba(10,18,34,0.55);
+  border:1px solid rgba(255,255,255,0.04);
+  color: #eaf4ff; border-radius:16px; padding:18px 18px 16px;
+  box-shadow:0 12px 30px rgba(2,6,23,0.6);
+  backdrop-filter: blur(8px);
   transform: translate3d(0,0,0);
   transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
 #home .card:hover{
-  transform: translateY(-4px);
-  box-shadow:0 24px 50px rgba(0,0,0,.09);
-  border-color: rgba(31,111,235,.18);
+  transform: translateY(-6px);
+  box-shadow:0 28px 60px rgba(2,6,23,0.7);
+  border-color: rgba(46,166,255,.12);
 }
-#home .card h3{margin:0 0 6px; font-size:18px;}
-#home .card p{margin:0 0 12px; color:var(--muted);}
+#home .card h3{margin:0 0 6px; font-size:18px; color:#f7fbff}
+#home .card p{margin:0 0 12px; color:rgba(230,240,255,0.9);}
 
 /* Placeholder */
 #home .card--placeholder{
@@ -174,3 +177,16 @@ header nav a:hover{opacity:.92}
   header nav{flex-wrap:wrap}
   header nav ul{flex-wrap:wrap; gap:8px}
 }
+
+/* THEME OVERLAY - unify styles across index pages */
+:root{
+  --accent-a: #2ea6ff;
+  --accent-b: #6b5ce8;
+  --bg-dark: #091122;
+  --text-light: #e7f0fb;
+}
+
+body{ background: linear-gradient(180deg, rgba(9,17,34,0.95), rgba(12,22,40,1)); color:var(--text-light); }
+header nav a{ transition: all .12s ease }
+.btn--primary{ background: linear-gradient(90deg,var(--accent-a),var(--accent-b)); color:#fff }
+.card{ border-radius:12px; background: rgba(255,255,255,0.03); box-shadow: 0 8px 30px rgba(2,6,23,0.6) }
