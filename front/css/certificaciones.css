@@ -1,63 +1,108 @@
+/* === Página de Certificaciones === */
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #203591, #562784);
+  margin: 0;
+  color: #f5f6fa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Contenedor general */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Título principal */
+.section__title {
+  text-align: center;
+  color: #ffffff;
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 2rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* === Cards === */
 .grid-certificaciones {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1.5rem;
+  gap: 2rem;
 }
 
+/* Efecto vidrio para las cards */
 .card {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: transform 0.2s ease;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  padding: 1.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
-  transform: scale(1.02);
+  transform: translateY(-8px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
 }
 
+/* Títulos dentro de las cards */
 .card h3 {
-  color: #004aad;
-  margin-bottom: 0.5rem;
+  color: #ffffff;
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 0.5rem;
 }
 
+/* Lista de temas o puntos */
 .card ul {
-  margin-left: 1.2rem;
+  margin: 0.8rem 0 1rem;
+  padding-left: 20px;
+  color: #e0e0e0;
 }
 
-.card .acciones {
+/* === Botones === */
+.acciones {
   display: flex;
   gap: 10px;
-  margin-top: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .btn {
-  flex: 1;
-  background-color: #007bff;
+  background: linear-gradient(90deg, #00b4db, #0083b0);
   color: white;
   border: none;
-  border-radius: 5px;
-  padding: 8px;
+  padding: 0.7rem 1.5rem;
+  border-radius: 12px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .btn:hover {
-  background-color: #0056b3;
+  opacity: 0.95;
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
-.btn:disabled {
-  background-color: #ccc;
+.btn[disabled] {
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
+/* Fecha o pie dentro de la card */
 .fecha {
+  margin-top: 12px;
+  color: #d1d1d1;
   font-size: 0.9rem;
-  color: gray;
-  margin-top: 10px;
   text-align: center;
 }

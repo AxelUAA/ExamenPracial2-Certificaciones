@@ -1,15 +1,88 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Contacto</title>
-	<link rel="stylesheet" href="../css/estilos.css">
-	<script defer src="../js/api.js"></script>
-	<script defer src="../js/ui.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contacto | CertifyApp</title>
+  <link rel="stylesheet" href="../css/contacto.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-	<!-- Contenido de contacto pendiente -->
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">Certify<span>App</span></div>
+    <nav class="nav">
+      <a href="index.html">Inicio</a>
+      <a href="certificaciones.html">Certificaciones</a>
+      <a href="contacto.html" class="active">Contacto</a>
+    </nav>
+  </header>
+
+  <!-- CONTENIDO -->
+  <main>
+    <section class="contacto">
+      <div class="container">
+        <h1 class="section__title">Contáctanos</h1>
+        <p class="intro">
+          ¿Tienes dudas o comentarios? Completa el formulario y te responderemos pronto 💬
+        </p>
+
+        <form id="contactForm">
+          <div class="input-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" required />
+          </div>
+
+          <div class="input-group">
+            <label for="correo">Correo electrónico</label>
+            <input type="email" id="correo" name="correo" required />
+          </div>
+
+          <div class="input-group">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+          </div>
+
+          <button type="submit" class="btn">Enviar mensaje</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="nosotros">
+      <div class="container">
+        <h2 class="section__title">Sobre Nosotros</h2>
+        <p class="intro">
+          En <strong>CertifyApp</strong> creemos en el poder del conocimiento. 
+          Somos una plataforma dedicada a ofrecer certificaciones en lenguajes de programación 
+          y frameworks modernos, ayudando a estudiantes y profesionales a demostrar su dominio técnico.
+        </p>
+
+        <div class="equipo">
+          <div class="card">
+            <h3>Axel Murillo</h3>
+            <p>Especialista en JavaScript y Node.js</p>
+          </div><div class="card">
+            <h3>Juan Daniel Arriaga Vera</h3>
+            <p>Especialista en JavaScript y Node.js</p>
+          </div>
+          <div class="card">
+            <h3>Omar Romero Lopez</h3>
+            <p>Instructor de C#, .NET y desarrollo backend</p>
+          </div>
+          <div class="card">
+            <h3>Jean Paulo Puentes Pacheco</h3>
+            <p>Diseñadora UX/UI y desarrolladora front-end</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2025 CertifyApp — Todos los derechos reservados</p>
+  </footer>
+
+  <script src="../js/contacto.js"></script>
 </body>
 </html>
-
