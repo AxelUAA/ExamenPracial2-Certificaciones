@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Inicio</title>
+	<link rel="stylesheet" href="../css/estilosIndex.css">
+	<script defer src="../js/api.js"></script>
+	<script defer src="../js/ui.js"></script>
+</head>
+<body>
+     <header class="site-header">
+    <nav class="nav container" aria-label="Principal">
+      
+      <a class="brand" href="./index.html">
+        <img class="brand__logo" src="/front/img/imagenes/logoDevBadge.png" alt="Logo de la empresa">
+        <span class="brand__name">DevBadge</span>
+      </a>
+
+      <ul class="nav__links">
+        <li><a class="active" href="./index.html">Inicio</a></li>
+        <li><a href="./certificaciones.html">Certificaciones</a></li>
+        <li><a href="./contacto.html">Contacto</a></li>
+        
+        <li id="nav-auth"><a href="./login.html">Iniciar sesión</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  
+  <main id="home">
+   
+    <section class="hero">
+      <div class="container hero__inner">
+        <div class="hero__brand">
+          
+          <img class="hero__logo" src="/front/img/imagenes/logoDevBadge.png" alt="Logo principal">
+          
+          <p class="hero__slogan" id="brandSlogan">
+            “Tu camino, tu logro, tu certificación.”
+          </p>
+        </div>
+
+        <div class="hero__copy">
+          <h1 class="hero__title">DevBadge: Certificaciones Reales</h1>
+          <p class="hero__subtitle">
+            Presenta tu examen, consulta resultados y descarga tu certificado en minutos.
+          </p>
+
+          <div class="hero__cta">
+            <a class="btn btn--primary" href="./login.html">Iniciar sesión</a>
+            <a class="btn btn--ghost" href="./certificaciones.html">Ver certificaciones</a>
+          </div>
+
+          <ul class="hero__highlights">
+            <li>Exámenes cronometrados</li>
+            <li>Resultados al instante</li>
+            <li>Certificado en PDF</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="container section">
+      <h2 class="section__title">¿Qué puedes hacer aquí?</h2>
+      <div class="cards">
+        <article class="card">
+          <h3>Presentar tu examen</h3>
+          <p>Timer, navegación por preguntas y envío de intento.</p>
+          <a class="btn" href="./certificaciones.html">Empezar ahora</a>
+        </article>
+
+        <article class="card">
+          <h3>Descargar tu certificado</h3>
+          <p>Diseño profesional listo para imprimir o guardar como PDF.</p>
+          <a class="btn" href="./certificaciones.html">Ver opciones</a>
+        </article>
+
+        <article class="card">
+          <h3>Soporte</h3>
+          <p>¿Dudas? Escríbenos y te ayudamos rápidamente.</p>
+          <a class="btn" href="./contacto.html">Ir a contacto</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- PREVIEW (opcional) de certificaciones -->
+    <section class="container section">
+      <h2 class="section__title">Certificaciones destacadas</h2>
+      <div id="destacadas" class="cards">
+        <article class="card card--placeholder">
+          <h3>Próximamente</h3>
+          <p>Agrega aquí tus certificaciones más populares o recientes.</p>
+          <a class="btn" href="./certificaciones.html">Ver todas</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <small>© <span id="year"></span> <span id="brandName">Tu Empresa de Certificaciones</span>. Todos los derechos reservados.</small>
+    </div>
+  </footer>
+
+  <script>
+    // año automático del footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+
+</body>
+</html>
+
