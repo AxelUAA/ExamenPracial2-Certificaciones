@@ -1,7 +1,7 @@
-// back/controllers/aut.controller.js
+
 const crypto = require("crypto");
-const USERS = require("../data/users");      // <- carga users.json (Node resuelve .json)
-const SESSIONS = require("../data/sessions"); // <- arreglo en memoria (sessions.js)
+const USERS = require("../data/users");      
+const SESSIONS = require("../data/sessions"); 
 
 // POST /api/auth/login
 const login = (req, res) => {
@@ -24,7 +24,7 @@ const login = (req, res) => {
     const token = crypto.randomUUID();
     SESSIONS.push({ token, userId: user.id, createdAt: Date.now() });
 
-    // Devuelve SOLO lo necesario al front, siguiendo tu estilo
+    // Devuelve SOLO lo necesario al front
     return res.status(200).json({
       token,
       user: {
@@ -41,7 +41,7 @@ const login = (req, res) => {
   }
 };
 
-// POST /api/auth/logout  (opcional ya desde el punto 1; si prefieres lo vemos en el 2)
+// POST /api/auth/logout  
 const logout = (req, res) => {
   try {
     console.log("Acceso a /api/auth/logout");
@@ -70,7 +70,7 @@ function doPayment(req, res) {
       return res.status(400).json({ error: "El pago ya estaba registrado" });
     }
 
-    user.pagoRealizado = true; // solo en memoria (como trabajas el resto)
+    user.pagoRealizado = true; // solo en memoria
     console.log(`Pago registrado para userId=${user.id}`);
     return res.json({ ok: true, userId: user.id });
   } catch (e) {
