@@ -157,26 +157,7 @@
   #home *{ animation: none !important; transition: none !important; }
 }
 
-/* ====== NAV - fallback para páginas sin wrapper #home ====== */
-header{
-  position:sticky; top:0; z-index:10;
-  background: linear-gradient(180deg, rgba(11,16,32,.95), rgba(11,16,32,.85));
-}
-header nav{
-  display:flex; align-items:center; justify-content:space-between;
-  gap:12px; padding:10px 16px; max-width:1100px; margin:0 auto;
-}
-header .brand{display:flex; align-items:center; gap:10px;}
-header .brand img{height:36px; width:auto; display:block;}
-header nav ul{list-style:none; margin:0; padding:0; display:flex; gap:12px; align-items:center}
-header nav ul li{margin:0}
-header nav a{color:#fff; text-decoration:none; font-weight:600; padding:6px 8px;}
-header nav a:hover{opacity:.92}
-
-@media (max-width:700px){
-  header nav{flex-wrap:wrap}
-  header nav ul{flex-wrap:wrap; gap:8px}
-}
+/* Nav fallback removed here in favor of global styles in estilos.css */
 
 /* THEME OVERLAY - unify styles across index pages */
 :root{

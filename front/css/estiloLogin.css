@@ -29,12 +29,6 @@
 #login .btn--primary{ background:#111827; color:#fff; }
 #login .btn--ghost{ background:transparent; color:#fff; border:2px solid #fff; }
 
-/* Header pegajoso como en el home (si usas el mismo nav) */
-#login .site-header{
-  position:sticky; top:0; z-index:10;
-  backdrop-filter:saturate(1.2) blur(6px);
-  background:linear-gradient(180deg, rgba(11,16,32,.55), rgba(11,16,32,0));
-}
 
 /* Banda hero con degradado (matching del index) */
 #login .login-hero{
@@ -104,29 +98,7 @@
 }
 .toggle-password:focus{ outline:2px solid rgba(31,111,235,.18) }
 
-/* ====== Header / Nav fixes for login page ====== */
-header.site-header, #login .site-header {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: linear-gradient(180deg, rgba(11,16,32,.95), rgba(11,16,32,.85));
-}
-#login .header-bar, header .header-bar{
-  display:flex; align-items:center; justify-content:space-between;
-  max-width:1100px; margin:0 auto; padding:10px 16px;
-}
-header .brand, #login .brand{ display:flex; align-items:center; gap:10px; }
-header .brand img, #login .brand img{ height:36px; width:auto; display:block; }
-
-/* Remove bullets if any nav uses lists */
-header nav ul, #login nav ul{ list-style:none; margin:0; padding:0; display:flex; gap:12px; align-items:center; }
-header nav ul li, #login nav ul li{ margin:0 }
-header nav a, #login nav a{ color:#fff; text-decoration:none; font-weight:600; padding:6px 8px }
-
-@media (max-width:700px){
-  #login .header-bar, header .header-bar{ flex-wrap:wrap }
-  header nav ul, #login nav ul{ flex-wrap:wrap; gap:8px }
-}
+/* Login-specific header rules removed to defer to global header styles in estilos.css */
 
 /* THEME OVERLAY - login adjustments for unified look */
 #login{ background: linear-gradient(180deg, rgba(6,12,28,0.98), rgba(10,18,34,1)); color:var(--text, #e9f2ff) }

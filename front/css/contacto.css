@@ -14,43 +14,7 @@
   font-family: var(--font-family, "Inter", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif);
 }
 
-/* ===== HEADER ===== */
-/* Make contacto header follow the global site header styles so it looks consistent */
-.header, .site-header {
-  background: transparent;
-  padding: 12px 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.header .logo, .brand__name {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--text-light);
-}
-
-/* Nav links: match the global nav appearance (padding, hover gradient) */
-.nav, .nav__links {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-}
-
-.nav a, .nav__links a {
-  color: var(--text-light);
-  text-decoration: none;
-  font-weight: 600;
-  padding: 6px 10px;
-  border-radius: 8px;
-  transition: background .15s ease, color .15s ease;
-}
-
-.nav a:hover, .nav__links a:hover,
-.nav a.active, .nav__links a.active {
-  background: linear-gradient(90deg, var(--brand), var(--brand-2));
-  color: #fff;
-}
+/* Header/nav styling is handled globally in estilos.css to ensure consistency across pages. */
 
 /* ===== GENERAL ===== */
 body {
@@ -64,7 +28,7 @@ body {
 }
 
 main {
-  padding-top: 120px; /* evita que se tape con el header */
+  padding-top: 24px; /* small offset so header doesn't overlap content on all pages */
 }
 
 /* Títulos */
