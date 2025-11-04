@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 :root {
   --brand: #203591;
   --brand-2: #562784;
@@ -53,22 +52,14 @@
 }
 
 /* ===== GENERAL ===== */
-=======
-/* === Página de Contacto === */
->>>>>>> 44669fe8f957327a4e04a8b00990c549af9b06de
 body {
   font-family: "Segoe UI", sans-serif;
   background: linear-gradient(135deg, #203591, #562784);
   margin: 0;
   color: #f5f6fa;
   min-height: 100vh;
-<<<<<<< HEAD
   font-family: var(--font-family);
   font-size:16px; line-height:1.6;
-=======
-  display: flex;
-  flex-direction: column;
->>>>>>> 44669fe8f957327a4e04a8b00990c549af9b06de
 }
 
 main {
@@ -172,7 +163,6 @@ textarea:focus {
 }
 
 .card {
-<<<<<<< HEAD
   /* darker glass card for better contrast */
   background: rgba(8,14,26,0.6);
   border-radius: 14px;
@@ -181,13 +171,6 @@ textarea:focus {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border:1px solid rgba(255,255,255,0.04);
   color: #e7f2fb;
-=======
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 16px;
-  padding: 1.5rem;
-  text-align: center;
-  transition: transform 0.3s ease;
->>>>>>> 44669fe8f957327a4e04a8b00990c549af9b06de
 }
 
 .card:hover {
@@ -195,11 +178,7 @@ textarea:focus {
 }
 
 .card h3 {
-<<<<<<< HEAD
   color: #bfe8ff;
-=======
-  color: #fff;
->>>>>>> 44669fe8f957327a4e04a8b00990c549af9b06de
   margin-bottom: 0.5rem;
 }
 
