@@ -1,5 +1,17 @@
+const fs = require("fs");
+const path = require("path");
 const CERTIFICACIONES = require("../data/certificaciones.json");
-const MESSAGES_CONTACT = require("../data/messagesContact.json");
+const MESSAGES_FILE = path.join(__dirname, "..", "data", "messagesContact.json");
+
+// helper: read messages from disk (fresh)
+function readMessages() {
+    try {
+        const raw = fs.readFileSync(MESSAGES_FILE, "utf8");
+        return JSON.parse(raw || "[]");
+    } catch (e) {
+        return [];
+    }
+}
 
 // GET /api/certificaciones
 const getCertificaciones = (req, res) => {
@@ -23,17 +35,21 @@ const saveContact = (req, res) => {
             });
         }
 
+        // Read current messages from disk
+        const messages = readMessages();
+
         // Crear nuevo mensaje
         const newMessage = {
-            id: MESSAGES_CONTACT.length + 1,
+            id: (messages.length ? messages[messages.length - 1].id : 0) + 1,
             nombre,
             email,
             mensaje,
             fecha: new Date().toISOString()
         };
 
-        // Guardar en el arreglo
-        MESSAGES_CONTACT.push(newMessage);
+        // Push and persist
+        messages.push(newMessage);
+        fs.writeFileSync(MESSAGES_FILE, JSON.stringify(messages, null, 2), "utf8");
 
         // Imprimir en consola del servidor
         console.log("Nuevo mensaje de contacto recibido:", newMessage);

@@ -1,4 +1,6 @@
-const SESSIONS = require("../data/sessions");
+const jwt = require("jsonwebtoken");
+
+const JWT_SECRET = process.env.JWT_SECRET || "dev_secret_change_me";
 
 module.exports = function authRequired(req, res, next) {
   try {
@@ -8,11 +10,15 @@ module.exports = function authRequired(req, res, next) {
       return res.status(401).json({ error: "Authorization header inválido" });
     }
 
-    // Las sesiones están en memoria en `back/data/sessions.js` (exporta un arreglo)
-    const session = SESSIONS.find(s => s.token === token);
-    if (!session) return res.status(401).json({ error: "Token no válido" });
+    // Verify JWT signature and extract payload
+    let payload;
+    try {
+      payload = jwt.verify(token, JWT_SECRET);
+    } catch (err) {
+      return res.status(401).json({ error: "Token no válido" });
+    }
 
-    req.userId = session.userId;
+    req.userId = payload.userId;
     next();
   } catch (err) {
     console.error("authRequired error:", err);

@@ -1,6 +1,7 @@
 // back/controllers/cert.controller.js
 const USERS = require("../data/users");
 const CERTS = require("../data/certificaciones.json");
+const PDFDocument = require("pdfkit");
 
 function downloadCert(req, res) {
   try {
@@ -14,25 +15,56 @@ function downloadCert(req, res) {
     const cert = CERTS.find(c => c.id === certId) || CERTS[0];
     const fecha = new Date().toLocaleDateString("es-MX");
 
-    const html = `<!doctype html><html lang="es"><meta charset="utf-8">
-<title>Certificado ${cert?.nombre || "Certificación"}</title>
-<style>
-  body{font-family:Arial,Helvetica,sans-serif;margin:40px}
-  .card{border:2px solid #222;padding:32px;border-radius:12px;max-width:800px}
-  h1{margin:0 0 8px}.meta{color:#555}
-</style>
-<div class="card">
-  <h1>Certificado de ${cert?.nombre || "Certificación"}</h1>
-  <p class="meta">Otorgado a:</p>
-  <h2>${user.nameCom || user.cuenta}</h2>
-  <p class="meta">Fecha: ${fecha}</p>
-  <p>Este documento acredita que la persona ha cumplido con los requisitos de evaluación
-  correspondientes a la certificación seleccionada.</p>
-</div></html>`;
+    // Generar PDF en el backend usando PDFKit
+    const doc = new PDFDocument({ size: "A4", margin: 50 });
+    // Cabeceras para descarga
+    res.setHeader("Content-Type", "application/pdf");
+    const filename = `certificado_${user.cuenta}.pdf`;
+    res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
 
-    res.setHeader("Content-Type", "text/html; charset=utf-8");
-    res.setHeader("Content-Disposition", `attachment; filename="certificado_${user.cuenta}.html"`);
-    return res.status(200).send(html);
+    // Pipe PDF al response
+    doc.pipe(res);
+
+    // Diseño sencillo del certificado
+    doc
+      .fontSize(20)
+      .text(cert?.nombre || "Certificación", { align: "center" })
+      .moveDown(1.5);
+
+    doc
+      .fontSize(14)
+      .text(`Otorgado a:`, { align: "center" })
+      .moveDown(0.5);
+
+    doc
+      .fontSize(22)
+      .text(user.nameCom || user.cuenta, { align: "center", underline: true })
+      .moveDown(1);
+
+    doc
+      .fontSize(12)
+      .text(`Fecha: ${fecha}`, { align: "center" })
+      .moveDown(2);
+
+    doc
+      .fontSize(11)
+      .text(`Este documento certifica que la persona ha cumplido con los requisitos de evaluación para la certificación "${cert?.nombre || "Certificación"}".`, {
+        align: "center",
+        indent: 20,
+        height: 300,
+        ellipsis: true
+      })
+      .moveDown(3);
+
+    // Espacio para firma (simple)
+    const signatureY = doc.y + 40;
+    doc.moveTo(120, signatureY).lineTo(360, signatureY).stroke();
+    doc.text("Firma del instructor", 120, signatureY + 6);
+
+    // Finalizar PDF
+    doc.end();
+
+    // No return res because stream is piped
   } catch (e) {
     console.error("cert download error:", e);
     return res.status(500).json({ error: "No se pudo generar el certificado" });
