@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const contenedor = document.getElementById("listaCertificaciones");
+  // Leemos la sesión desde localStorage. Formato esperado: { token, user }
+  // `usuario` contiene información como cuenta, pagoRealizado, examenPresentado, etc.
   const sesion = JSON.parse(localStorage.getItem("session") || "null");
   const usuario = sesion?.user || null;
   const token = sesion?.token || null;
@@ -59,6 +61,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   async function pagarCertificacion(e) {
     const id = e.target.dataset.id;
 
+    // Validaciones antes de procesar el pago: sesión activa y token disponible.
     if (!usuario || !token) {
       return Swal.fire({
         icon: "warning",
@@ -77,7 +80,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     }
 
-    const confirm = await Swal.fire({
+  // Confirmación de pago usando SweetAlert. Si el usuario confirma, se hace POST al backend.
+  const confirm = await Swal.fire({
       icon: "question",
       title: "¿Deseas realizar el pago?",
       text: "Se cargará el costo de la certificación.",
@@ -91,6 +95,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!confirm.isConfirmed) return;
 
     try {
+      // Petición al endpoint de pago (protegido). En body enviamos idCertificacion.
       const res = await fetch("http://localhost:3000/api/auth/payment", {
         method: "POST",
         headers: {
@@ -103,6 +108,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const data = await res.json();
 
       if (data.ok) {
+        // Si backend confirma pago guardamos el cambio en localStorage
         usuario.pagoRealizado = true;
         localStorage.setItem("session", JSON.stringify({ ...sesion, user: usuario }));
         Swal.fire({
@@ -170,6 +176,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     try {
+      // Descarga de PDF generado por el backend.
+      // La respuesta es un blob (application/pdf). Creamos un enlace temporal para forzar descarga.
       const res = await fetch(`${API_URL}/cert/download?certId=${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -184,9 +192,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       const a = document.createElement('a');
       a.style.display = 'none';
       a.href = url;
+      // Nombre propuesto del archivo usando la cuenta del usuario
       a.download = `certificado_${usuario.cuenta}.pdf`;
       document.body.appendChild(a);
       a.click();
+      // Liberamos el objeto URL para liberar memoria
       window.URL.revokeObjectURL(url);
       a.remove();
 

@@ -1,5 +1,13 @@
+// Este archivo controla la lógica del examen:
+// - Lectura de token (sesión)
+// - Petición al backend para iniciar intento y obtener preguntas
+// - Renderizado de preguntas y recolección de respuestas
+// - Temporizador que auto-envía cuando se acaba el tiempo
+// Comentarios en español para facilitar la comprensión.
 document.addEventListener("DOMContentLoaded", async () => {
-  // Read token from the shared `session` object saved by auth.js
+  // Leemos la sesión guardada por `auth.js`. El formato esperado es:
+  // localStorage.session = JSON.stringify({ token, user })
+  // Aquí solo necesitamos el token para autorizar las peticiones.
   let ses = null;
   try {
     ses = JSON.parse(localStorage.getItem("session") || "null");
@@ -16,7 +24,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    // Use API_URL from ../js/api.js (must be loaded before this script)
+    // Llamamos al backend para iniciar el examen y crear un intento (attempt)
+    // Esta ruta debe devolver un objeto con { questions, attemptId, ... }
+    // Atención: esta llamada está protegida, por eso enviamos el header Authorization
   const res = await fetch(`${API_URL}/exams/start`, {
       method: "POST",
       headers: {
@@ -32,7 +42,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    renderQuestions(data.questions);
+  // Una vez recibidas las preguntas, las renderizamos en el DOM
+  // renderQuestions creará los inputs y arrastra la lógica del temporizador
+  renderQuestions(data.questions);
     form.classList.remove("hidden");
     form.dataset.attemptId = data.attemptId;
 
@@ -58,50 +70,44 @@ document.addEventListener("DOMContentLoaded", async () => {
       container.appendChild(div);
     });
 
-    // Aqui hago la logica del timer
+    // Aquí está la lógica del temporizador (timer). La idea:
+    // 1) Intentar obtener el tiempo de la certificación desde la API (campo 'tiempoExamen').
+    // 2) Si está disponible, extraer el número de minutos (ej. "90 minutos") y usarlo.
+    // 3) Calcular la fecha de finalización y actualizar el contador cada segundo.
+    // 4) Cuando llegue a 0, auto-enviar el formulario.
     (async () => {
-      // Obtener certId desde query params (si está presente) o usar 1
-      const certId =  1;
+      // Para simplificar este ejemplo usamos certId = 1.
+      const certId = 1;
 
-      // Intentar obtener la certificación desde la API para leer su tiempo
+      // minutos tomados de la certificación (fallback = 0)
       let minutos = 0;
       try {
-        // Hacemos la llamada a la API como pide el requisito
         const r = await fetch(`${API_URL}/certificaciones`);
         if (r.ok) {
           const all = await r.json();
-          // Buscamos específicamente la certificación con el ID 1
           const cert = (all || []).find(c => Number(c.id) === certId);
-          
-          // Verificamos el JSON que me diste
-          if (cert && cert.tiempoExamen) { 
-            // Extraemos solo el número (90)
+          if (cert && cert.tiempoExamen) {
+            // Extraemos el primer número que encontremos en el texto
             const m = String(cert.tiempoExamen).match(/(\d+)/);
             minutos = m ? parseInt(m[0], 10) : 0;
           }
         }
       } catch (err) {
+        // No crítico: si falla la llamada, usamos minutos = 0 y el contador no sumará tiempo.
         console.warn('No se pudo obtener tiempo de certificacion, usando fallback', err);
       }
-      // --- 1. Establece la fecha de finalización ---
-      // La cuenta regresiva terminará en 'minutos' a partir de ahora.
+
+      // Si minutos es 0 el contador mostrará 00:00:00 y al finalizar intentará enviar.
       const countDownDate = Date.now() + minutos * 60 * 1000;
 
-      // --- 2. Actualiza el contador cada segundo ---
       const x = setInterval(function() {
-
-        // --- 3. Obtiene la fecha y hora actual ---
-        const now = new Date().getTime();
-        // --- 4. Calcula la distancia que falta ---
+        const now = Date.now();
         const distance = countDownDate - now;
 
-        // --- 5. Cálculos de tiempo para días, horas, minutos y segundos ---
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutesLeft = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        // --- 6. Muestra el resultado en el HTML ---
-        // Busca los elementos por su ID y les pone el valor calculado.
         const elH = document.getElementById("hours");
         const elM = document.getElementById("minutes");
         const elS = document.getElementById("seconds");
@@ -109,16 +115,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (elM) elM.innerText = String(minutesLeft).padStart(2, '0');
         if (elS) elS.innerText = String(seconds).padStart(2, '0');
 
-        // --- 7. (Opcional) ¿Qué hacer cuando termine? ---
-        // Si la distancia es menor que 0, el contador terminó.
+        // Cuando termine el tiempo, detenemos el intervalo y auto-enviamos el examen.
         if (distance < 0) {
-          clearInterval(x); // Detiene el intervalo
+          clearInterval(x);
           const cd = document.getElementById("countdown");
           if (cd) {
             cd.classList.add('ended');
             cd.innerHTML = "¡TIEMPO TERMINADO!";
           }
-          // Enviar el formulario automáticamente cuando termine el tiempo
+          // Auto-enviar el formulario: simulamos click en el botón enviar.
           const submitBtn = form.querySelector('button[type="submit"]');
           if (submitBtn) submitBtn.click();
         }
@@ -131,16 +136,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     e.preventDefault();
 
     const attemptId = form.dataset.attemptId;
+    // Recolectar respuestas del DOM:
+    // Cada .question contiene inputs tipo radio con name="q<id>".
+    // Construimos un array de objetos { id, answer } para enviar al backend.
     const answers = Array.from(container.querySelectorAll(".question")).map(q => {
       const id = q.querySelector("input").name.replace("q", "");
       const selected = q.querySelector("input:checked");
       return {
         id: parseInt(id),
+        // Si no se seleccionó, enviamos null (backend debe manejar preguntas sin respuesta)
         answer: selected ? selected.value : null
       };
     });
 
     try {
+  // Enviamos las respuestas al endpoint protegido /exams/submit.
+  // El backend espera { attemptId, answers } y devolverá calificación, aprobado, etc.
   const res = await fetch(`${API_URL}/exams/submit`, {
         method: "POST",
         headers: {

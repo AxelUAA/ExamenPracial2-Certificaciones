@@ -1,5 +1,4 @@
 // Controlador sencillo para certificaciones y contacto
-// Comentarios en español y lógica clara (sin código sofisticado)
 const fs = require('fs');
 const path = require('path');
 

@@ -39,6 +39,11 @@
 
     <div id="exam-section">
       <!-- Countdown timer -->
+      <!--
+        El bloque de abajo muestra el temporizador del examen (horas/minutos/segundos).
+        Los elementos con id="hours", id="minutes" y id="seconds" son actualizados
+        por `front/js/examen.js`. Cuando el tiempo llega a 0, el script auto-envía el examen.
+      -->
       <div id="countdown" class="countdown">
         <div class="time-box"><span id="hours">00</span><div class="label">Horas</div></div>
         <div class="time-box"><span id="minutes">00</span><div class="label">Min</div></div>
@@ -48,6 +53,11 @@
         <div id="questions-container"></div>
         <button type="submit" class="btn enviar-btn">Enviar Examen</button>
       </form>
+      <!--
+        `examForm` es el formulario principal. Las preguntas se inyectan dentro de
+        #questions-container por `examen.js`. Al enviar, el script recolecta las respuestas
+        y las envía al backend en /api/exams/submit.
+      -->
     </div>
   </main>
 

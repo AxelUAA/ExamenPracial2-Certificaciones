@@ -8,6 +8,12 @@
   
   <link rel="stylesheet" href="../css/estilos.css" />
   <link rel="stylesheet" href="../css/contacto.css" />
+  <!-- Scripts del front:
+       - api.js: helpers para llamar al backend y manejar token
+       - ui.js: actualiza la UI del header según la sesión
+       - SweetAlert2: librería para mostrar alertas bonitas
+       - contact.js: lógica del formulario (validación y envío)
+  -->
   <script defer src="../js/api.js"></script>
   <script defer src="../js/ui.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -59,6 +65,10 @@
 
           <button type="submit" class="btn">Enviar mensaje</button>
         </form>
+          <!--
+            Nota: el formulario tiene id="contactForm" y lo maneja ../js/contact.js
+            El flujo es: validar campos en el cliente -> POST a /api/contact -> mostrar SweetAlert
+          -->
       </div>
     </section>
 
