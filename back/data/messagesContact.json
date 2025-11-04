@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "id": 1,
+    "nombre": "AXEL",
+    "email": "axelinm11@gmail.com",
+    "mensaje": "Me gusta programar en node js",
+    "fecha": "2025-11-04T20:15:43.234Z"
+  }
+]
