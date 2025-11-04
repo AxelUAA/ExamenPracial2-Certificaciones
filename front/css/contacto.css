@@ -15,40 +15,41 @@
 }
 
 /* ===== HEADER ===== */
-.header {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+/* Make contacto header follow the global site header styles so it looks consistent */
+.header, .site-header {
+  background: transparent;
+  padding: 12px 0;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  color: white;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 10;
+  justify-content: space-between;
 }
 
-.logo {
-  font-size: 1.5rem;
+.header .logo, .brand__name {
+  font-size: 1.25rem;
   font-weight: 700;
+  color: var(--text-light);
 }
 
-.logo span {
-  color: #00c9a7;
+/* Nav links: match the global nav appearance (padding, hover gradient) */
+.nav, .nav__links {
+  display: flex;
+  gap: 16px;
+  align-items: center;
 }
 
-.nav a {
-  color: #fff;
+.nav a, .nav__links a {
+  color: var(--text-light);
   text-decoration: none;
-  margin-left: 1.5rem;
-  font-weight: 500;
-  transition: color 0.3s;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: background .15s ease, color .15s ease;
 }
 
-.nav a:hover,
-.nav a.active {
-  color: #00c9a7;
+.nav a:hover, .nav__links a:hover,
+.nav a.active, .nav__links a.active {
+  background: linear-gradient(90deg, var(--brand), var(--brand-2));
+  color: #fff;
 }
 
 /* ===== GENERAL ===== */
