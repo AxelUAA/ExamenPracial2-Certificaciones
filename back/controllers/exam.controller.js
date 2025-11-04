@@ -1,9 +1,7 @@
 const crypto = require("crypto"); // Para generar IDs de intento únicos
 const ALL_QUESTIONS = require("../data/questions");
-const USERS = require("../data/users"); // Tu "base de datos" de usuarios (array cargado desde JSON)
+const USERS = require("../data/users"); // Tu "base de datos" de usuarios
 const CERTIFICATIONS = require("../data/certificaciones");
-const fs = require('fs');
-const path = require('path');
 
 // --- Almacén en memoria para intentos de examen ---
 // Estructura: Map<attemptId, { userId, correctAnswers, submitted, certificationId }>
@@ -127,28 +125,13 @@ const enviarExamen = (req, res) => {
   const puntajeMinimo = cert ? cert.puntajeMinimo : 70; // Default por si acaso
   const aprobado = calificacion >= puntajeMinimo;
 
-  // guardamos el resultado en memoria
+  // guardamos el resultado 
   attempt.submitted = true;
   attempt.calificacion = calificacion;
   attempt.aprobado = aprobado;
 
   console.log(`Examen ${attemptId} calificado. Resultado: ${calificacion}%. Aprobado: ${aprobado}`);
-
-  // Persistir resultado en users.json (escritura síncrona simple)
-  try {
-    const user = USERS.find(u => u.id === userId);
-    if (user) {
-      user.examenPresentado = true;
-      user.aprobado = aprobado; // true o false
-      const usersFile = path.join(__dirname, '..', 'data', 'users.json');
-      fs.writeFileSync(usersFile, JSON.stringify(USERS, null, 2), 'utf8');
-      console.log(`Estado del usuario ${userId} persistido en users.json (aprobado=${aprobado})`);
-    }
-  } catch (e) {
-    console.error('Error al persistir users.json:', e);
-    // No impedimos responder al front si falla la persistencia
-  }
-
+  
   // responder al front
   res.status(200).json({
     message: "Examen evaluado.",
@@ -156,7 +139,7 @@ const enviarExamen = (req, res) => {
     aprobado,
     score,
     total: totalQuestions
-  });
+});
 };
 //se envian las funciones
 module.exports = { iniciarExamen, enviarExamen };

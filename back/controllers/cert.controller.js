@@ -11,12 +11,6 @@ function downloadCert(req, res) {
     const user = USERS.find(u => u.id === req.userId);
     if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
 
-      // Verificar que el usuario haya aprobado el examen antes de permitir descarga
-      // Si la propiedad 'aprobado' no existe o es false, denegamos la descarga
-      if (!user.aprobado) {
-        return res.status(403).json({ error: 'No autorizado: no aprobaste el examen, no puedes descargar el certificado.' });
-      }
-
     const cert = CERTS.find(c => c.id === certId) || CERTS[0];
     const fecha = new Date().toLocaleDateString("es-MX");
 
