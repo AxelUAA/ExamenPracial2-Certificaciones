@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     // Use API_URL from ../js/api.js (must be loaded before this script)
-    const res = await fetch(`${API_URL}/exam/start`, {
+  const res = await fetch(`${API_URL}/exams/start`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     try {
-      const res = await fetch("/api/exam/submit", {
+  const res = await fetch(`${API_URL}/exams/submit`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
