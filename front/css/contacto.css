@@ -166,3 +166,59 @@ body{ background: linear-gradient(135deg, #071226, #0f1b33); }
 .container{ max-width:1100px; margin:0 auto }
 .btn{ border-radius:12px }
 
+
+/* ====== FOOTER MODERNO ====== */
+.site-footer {
+  padding: 32px 0;
+  background: linear-gradient(90deg, rgba(31,111,235,0.08), rgba(167,119,227,0.08));
+  text-align: center;
+  color: var(--muted);
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.footer__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer__quote {
+  font-style: italic;
+  color: rgba(230,240,255,0.9);
+  margin: 0;
+}
+
+.footer__rights {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.footer__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #e5edff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color .2s ease, transform .2s ease;
+}
+
+.footer__link:hover {
+  color: var(--brand-2);
+  transform: translateY(-2px);
+}
+
+.footer__icon {
+  width: 18px;
+  height: 18px;
+  filter: invert(80%) sepia(40%) saturate(300%) hue-rotate(200deg);
+  transition: filter .2s ease;
+}
+
+.footer__link:hover .footer__icon {
+  filter: invert(70%) sepia(90%) saturate(500%) hue-rotate(260deg);
+}
+
+

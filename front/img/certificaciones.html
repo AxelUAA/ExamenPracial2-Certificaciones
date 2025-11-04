@@ -36,12 +36,16 @@
     <div id="listaCertificaciones" class="grid-certificaciones"></div>
   </main>
 
- <footer class="footer">
-    <p>© 2025 DevBadge — Todos los derechos reservados</p>
-    <p>“Tu camino, tu logro, tu certificación.”</p>
-    <a href="https://www.instagram.com/devbadge_05?igsh=MTc1NmhmNGJtaXdjdw==">Nuestro Instagram</a>
-  </footer>
-
+ <footer class="site-footer">
+  <div class="footer__inner">
+    <p class="footer__quote">“Tu camino, tu logro, tu certificación.”</p>
+    <p class="footer__rights">© <span id="anio"></span> <strong>DevBadge</strong> — Todos los derechos reservados</p>
+    <a class="footer__link" href="https://www.instagram.com/devbadge_05?igsh=MTc1NmhmNGJtaXdjdw==" target="_blank" rel="noopener">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" class="footer__icon">
+      Síguenos en Instagram
+    </a>
+  </div>
+</footer>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
