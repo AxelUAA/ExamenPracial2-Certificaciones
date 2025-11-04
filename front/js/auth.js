@@ -12,12 +12,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const cuenta = document.getElementById("cuenta").value.trim();
     const contrasena = document.getElementById("password").value.trim();
+    const nameCom = document.getElementById("nameCom").value.trim();
 
     try {
       const res = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cuenta, contrasena }),
+        body: JSON.stringify({ cuenta, contrasena, nameCom }),
       });
       const data = await res.json();
 

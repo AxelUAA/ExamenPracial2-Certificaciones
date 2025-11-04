@@ -6,17 +6,20 @@ const SESSIONS = require("../data/sessions"); // <- arreglo en memoria (sessions
 // POST /api/auth/login
 const login = (req, res) => {
   try {
-    const { cuenta, contrasena } = req.body || {};
+    const { cuenta, contrasena, nameCom } = req.body || {};
     console.log("Acceso a /api/auth/login:", cuenta);
 
-    if (!cuenta || !contrasena) {
-      return res.status(400).json({ error: "Faltan credenciales" });
+    if (!cuenta || !contrasena || !nameCom) {
+      return res.status(400).json({ error: "Faltan credenciales o nombre completo" });
     }
 
     const user = USERS.find(u => u.cuenta === cuenta && u.contrasena === contrasena);
     if (!user) {
       return res.status(401).json({ error: "Credenciales inválidas" });
     }
+
+    // Actualizar el nombre completo del usuario
+    user.nameCom = nameCom;
 
     const token = crypto.randomUUID();
     SESSIONS.push({ token, userId: user.id, createdAt: Date.now() });

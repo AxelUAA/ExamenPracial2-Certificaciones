@@ -11,9 +11,6 @@ function downloadCert(req, res) {
     const user = USERS.find(u => u.id === req.userId);
     if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
 
-    // Si quieres exigir pago antes de descargar, descomenta:
-    // if (!user.pagoRealizado) return res.status(403).json({ error: "Pago pendiente" });
-
     const cert = CERTS.find(c => c.id === certId) || CERTS[0];
     const fecha = new Date().toLocaleDateString("es-MX");
 
@@ -79,14 +76,14 @@ function downloadCert(req, res) {
       try { doc.image(instrSig, leftX, startY, { width: 100 }); } catch(e) {}
     }
     doc.moveTo(leftX, startY + 70).lineTo(leftX + 120, startY + 70).stroke();
-    doc.fontSize(10).text('Dr. Juan Pérez', leftX, startY + 75, { width: 120, align: 'center' });
+    doc.fontSize(10).text('Ing. Juan Daniel A. V.', leftX, startY + 75, { width: 120, align: 'center' });
     doc.fontSize(9).text('Instructor Principal', leftX, startY + 90, { width: 120, align: 'center' });
 
     if (fs.existsSync(ceoSig)) {
       try { doc.image(ceoSig, rightX, startY, { width: 100 }); } catch(e) {}
     }
     doc.moveTo(rightX, startY + 70).lineTo(rightX + 120, startY + 70).stroke();
-    doc.fontSize(10).text('Ing. María Rodríguez', rightX, startY + 75, { width: 120, align: 'center' });
+    doc.fontSize(10).text('Ing. Jean Puentes P. P.', rightX, startY + 75, { width: 120, align: 'center' });
     doc.fontSize(9).text('CEO DevBadge', rightX, startY + 90, { width: 120, align: 'center' });
 
     // Footer
