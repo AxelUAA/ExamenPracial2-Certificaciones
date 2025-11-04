@@ -181,3 +181,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 });
+
+ // Crear objeto de fecha
+    const hoy = new Date();
+
+    // Formatear la fecha (ejemplo: 4/11/2025)
+    const fechaFormateada = hoy.toLocaleDateString('es-MX', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+
+    // Mostrar la fecha en el elemento con id="fecha"
+    document.getElementById('fecha').textContent = fechaFormateada;
