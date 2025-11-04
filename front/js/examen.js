@@ -86,6 +86,17 @@ document.addEventListener("DOMContentLoaded", async () => {
       const data = await res.json();
 
       if (res.ok) {
+        // Actualizar el estado del usuario en localStorage para habilitar descargas
+        try {
+          const session = JSON.parse(localStorage.getItem("session") || "null");
+          if (session && session.user) {
+            session.user.examenPresentado = true;
+            localStorage.setItem("session", JSON.stringify(session));
+          }
+        } catch (err) {
+          console.warn("No se pudo actualizar session en localStorage", err);
+        }
+
         Swal.fire({
           title: data.aprobado ? "🎉 ¡Aprobado!" : "❌ No aprobado",
           html: `

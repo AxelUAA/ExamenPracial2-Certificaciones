@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <div class="acciones">
           <button class="btn pagar" ${!activa ? "disabled" : ""} data-id="${cert.id}">Pagar</button>
           <button class="btn iniciar" ${!activa ? "disabled" : ""} data-id="${cert.id}">Iniciar Examen</button>
+          <button class="btn descargar-examen" ${!activa || !usuario?.examenPresentado ? "disabled" : ""} data-id="${cert.id}">Descargar Certificacion</button>
         </div>
 
         ${!activa ? `<p class="fecha">${fechas[i - 1]}</p>` : ""}
@@ -44,6 +45,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
     document.querySelectorAll(".iniciar").forEach(btn =>
       btn.addEventListener("click", iniciarExamen)
+    );
+    document.querySelectorAll('.descargar-examen').forEach(btn =>
+      btn.addEventListener('click', descargarCertificacion)
     );
 
   } catch (err) {
@@ -151,5 +155,45 @@ document.addEventListener("DOMContentLoaded", async () => {
     }).then(() => {
       window.location.href = "examen.html";
     });
+  }
+
+  // Descargar examen (actualmente descarga el certificado en PDF generado por el backend)
+  async function descargarCertificacion(e) {
+    const id = e.target.dataset.id;
+
+    if (!usuario || !token) {
+      return Swal.fire({ icon: 'warning', title: 'Inicia sesión', text: 'Debes iniciar sesión para descargar.', confirmButtonColor: '#2563eb' });
+    }
+
+    if (!usuario.examenPresentado) {
+      return Swal.fire({ icon: 'info', title: 'Examen pendiente', text: 'Debes completar el examen antes de descargar.', confirmButtonColor: '#2563eb' });
+    }
+
+    try {
+      const res = await fetch(`${API_URL}/cert/download?certId=${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      if (!res.ok) {
+        const txt = await res.text().catch(() => 'Error al descargar');
+        throw new Error(txt || 'Error al descargar');
+      }
+
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = `certificado_${usuario.cuenta}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      a.remove();
+
+      Swal.fire({ icon: 'success', title: 'Descargado', text: 'El archivo se descargó correctamente.', confirmButtonColor: '#2563eb' });
+    } catch (err) {
+      console.error('descargarCertificacion error', err);
+      Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo descargar el archivo.', confirmButtonColor: '#2563eb' });
+    }
   }
 });

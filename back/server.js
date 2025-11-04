@@ -9,11 +9,13 @@ app.use(express.json());
 const examsRoutes = require("./routes/examen.routes");
 const otherRoutes = require("./routes/other.routes");
 const authRoutes = require("./routes/auth");
+const certificateRoutes = require("./routes/certificate");
 
 
 app.use("/api/auth", authRoutes);
 app.use("/api/exams", examsRoutes);
 app.use("/api", otherRoutes);
+app.use("/api/cert", certificateRoutes);
 
 
 // Arranque del servidor
