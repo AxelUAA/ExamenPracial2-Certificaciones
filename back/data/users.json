@@ -1,8 +1,51 @@
 [
-    { "id": 1, "cuenta": "jean",      "contrasena": "hola123",  "nameCom": "", "pagoRealizado": false, "examenPresentado": false },
-    { "id": 2, "cuenta": "juan",     "contrasena": "7894",    "nameCom": "", "pagoRealizado": false, "examenPresentado": false },
-    { "id": 3, "cuenta": "axel",     "contrasena": "chinito78",   "nameCom": "", "pagoRealizado": false, "examenPresentado": false },
-    { "id": 4, "cuenta": "omar",      "contrasena": "cheve753", "nameCom": "", "pagoRealizado": false, "examenPresentado": false },
-    { "id": 5, "cuenta": "peter",    "contrasena": "spiderman",  "nameCom": "", "pagoRealizado": false, "examenPresentado": false },
-    { "id": 6, "cuenta": "liz",  "contrasena": "guiso78","nameCom": "", "pagoRealizado": false, "examenPresentado": false }
+  {
+    "id": 1,
+    "cuenta": "jean",
+    "contrasena": "hola123",
+    "nameCom": "",
+    "pagoRealizado": false,
+    "examenPresentado": false
+  },
+  {
+    "id": 2,
+    "cuenta": "juan",
+    "contrasena": "7894",
+    "nameCom": "",
+    "pagoRealizado": false,
+    "examenPresentado": false
+  },
+  {
+    "id": 3,
+    "cuenta": "axel",
+    "contrasena": "chinito78",
+    "nameCom": "Axel Murillo Lopez",
+    "pagoRealizado": true,
+    "examenPresentado": true,
+    "aprobado": false
+  },
+  {
+    "id": 4,
+    "cuenta": "omar",
+    "contrasena": "cheve753",
+    "nameCom": "",
+    "pagoRealizado": false,
+    "examenPresentado": false
+  },
+  {
+    "id": 5,
+    "cuenta": "peter",
+    "contrasena": "spiderman",
+    "nameCom": "",
+    "pagoRealizado": false,
+    "examenPresentado": false
+  },
+  {
+    "id": 6,
+    "cuenta": "liz",
+    "contrasena": "guiso78",
+    "nameCom": "",
+    "pagoRealizado": false,
+    "examenPresentado": false
+  }
 ]
