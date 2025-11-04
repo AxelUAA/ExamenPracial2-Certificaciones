@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 :root {
   --brand: #203591;
   --brand-2: #562784;
@@ -52,109 +53,126 @@
 }
 
 /* ===== GENERAL ===== */
+=======
+/* === Página de Contacto === */
+>>>>>>> 44669fe8f957327a4e04a8b00990c549af9b06de
 body {
-  background: linear-gradient(135deg, var(--brand), var(--brand-2));
-  color: var(--text-light);
-  padding-top: 80px;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #203591, #562784);
+  margin: 0;
+  color: #f5f6fa;
   min-height: 100vh;
+<<<<<<< HEAD
   font-family: var(--font-family);
   font-size:16px; line-height:1.6;
+=======
+  display: flex;
+  flex-direction: column;
+>>>>>>> 44669fe8f957327a4e04a8b00990c549af9b06de
 }
 
-/* ===== CONTENEDOR ===== */
-.container {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  width: 90%;
-  max-width: 800px;
-  margin: 3rem auto;
-  padding: 2rem;
-  text-align: center;
+main {
+  padding-top: 120px; /* evita que se tape con el header */
 }
 
-/* ===== TÍTULOS ===== */
+/* Títulos */
 .section__title {
-  font-size: 2rem;
+  text-align: center;
+  color: #ffffff;
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
   margin-bottom: 1rem;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .intro {
-  color: var(--text-muted);
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
+  text-align: center;
+  color: #dcdcdc;
+  max-width: 700px;
+  margin: 0 auto 2rem;
 }
 
-/* ===== FORMULARIO ===== */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
+/* === Formulario === */
+.form-contacto {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto 4rem auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
 }
 
 .input-group {
   display: flex;
   flex-direction: column;
-  text-align: left;
+  margin-bottom: 1.2rem;
 }
 
 label {
-  margin-bottom: 0.4rem;
   font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.5rem;
 }
 
 input,
 textarea {
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
+  width: 100%;
+  padding: 0.8rem 1rem;
   border-radius: 10px;
-  padding: 0.8rem;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
   color: white;
-  resize: none;
   font-size: 1rem;
-  transition: background 0.3s ease;
+  resize: none;
+  outline: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #ccc;
 }
 
 input:focus,
 textarea:focus {
-  outline: none;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid #00e0b8;
 }
 
-/* ===== BOTÓN ===== */
+/* === Botón === */
 .btn {
   background: linear-gradient(90deg, #00b4db, #0083b0);
   color: white;
   border: none;
-  padding: 0.9rem;
+  padding: 0.8rem 1.5rem;
   border-radius: 12px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: block;
+  margin: 1rem auto 0 auto;
+  transition: all 0.3s ease;
 }
 
 .btn:hover {
+  opacity: 0.95;
   transform: scale(1.05);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* ===== SECCIÓN NOSOTROS ===== */
+/* === Sección "Sobre Nosotros" === */
 .nosotros {
-  margin-top: 2rem;
+  margin-top: 3rem;
 }
 
 .equipo {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
 }
 
 .card {
+<<<<<<< HEAD
   /* darker glass card for better contrast */
   background: rgba(8,14,26,0.6);
   border-radius: 14px;
@@ -163,27 +181,40 @@ textarea:focus {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border:1px solid rgba(255,255,255,0.04);
   color: #e7f2fb;
+=======
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease;
+>>>>>>> 44669fe8f957327a4e04a8b00990c549af9b06de
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transform: translateY(-6px);
 }
 
 .card h3 {
+<<<<<<< HEAD
   color: #bfe8ff;
+=======
+  color: #fff;
+>>>>>>> 44669fe8f957327a4e04a8b00990c549af9b06de
   margin-bottom: 0.5rem;
 }
 
-/* ===== FOOTER ===== */
-.footer {
+.card p {
+  color: #dcdcdc;
+  font-size: 0.95rem;
+}
+
+/* === Footer === */
+.site-footer {
+  background-color: #0f172a;
   text-align: center;
-  padding: 1.5rem;
-  color: #ccc;
-  font-size: 0.9rem;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(8px);
-  margin-top: 2rem;
+  padding: 1rem 0;
+  color: #aaa;
+  margin-top: auto;
 }
 
 /* THEME TWEAK: unify look */
