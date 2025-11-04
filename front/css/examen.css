@@ -57,3 +57,24 @@ label {
 .enviar-btn {
   margin-top: 20px;
 }
+
+/* Countdown styles */
+#countdown {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.time-box {
+  
+  background: #12254c; 
+  border: 1px solid #0a40b7; 
+  padding: 10px 14px;
+  border-radius: 8px;
+  min-width: 64px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .7);
+}
+.time-box span { display:block; font-size:1.1rem; font-weight:700; text-align:center; color: #e6f2ff; }
+.time-box .label { font-size:0.75rem; color:#9ecbff; text-align:center; margin-top:4px; }
+
+#countdown.ended { text-align: center; font-weight:700; color: #ef4444; }

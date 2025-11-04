@@ -30,12 +30,19 @@
     </nav>
   </header>
 
+
   <!-- CONTENIDO -->
   <main class="container examen-container">
     <h1 class="section__title">Examen de Certificación</h1>
     <p class="intro">Responde las siguientes preguntas. ¡Tienes solo una oportunidad! 🚀</p>
 
     <div id="exam-section">
+      <!-- Countdown timer -->
+      <div id="countdown" class="countdown">
+        <div class="time-box"><span id="hours">00</span><div class="label">Horas</div></div>
+        <div class="time-box"><span id="minutes">00</span><div class="label">Min</div></div>
+        <div class="time-box"><span id="seconds">00</span><div class="label">Seg</div></div>
+      </div>
       <form id="examForm">
         <div id="questions-container"></div>
         <button type="submit" class="btn enviar-btn">Enviar Examen</button>

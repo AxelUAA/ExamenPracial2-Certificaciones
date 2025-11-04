@@ -57,6 +57,73 @@ document.addEventListener("DOMContentLoaded", async () => {
       `;
       container.appendChild(div);
     });
+
+    // Aqui hago la logica del timer
+    (async () => {
+      // Obtener certId desde query params (si está presente) o usar 1
+      const certId =  1;
+
+      // Intentar obtener la certificación desde la API para leer su tiempo
+      let minutos = 0;
+      try {
+        // Hacemos la llamada a la API como pide el requisito
+        const r = await fetch(`${API_URL}/certificaciones`);
+        if (r.ok) {
+          const all = await r.json();
+          // Buscamos específicamente la certificación con el ID 1
+          const cert = (all || []).find(c => Number(c.id) === certId);
+          
+          // Verificamos el JSON que me diste
+          if (cert && cert.tiempoExamen) { 
+            // Extraemos solo el número (90)
+            const m = String(cert.tiempoExamen).match(/(\d+)/);
+            minutos = m ? parseInt(m[0], 10) : 0;
+          }
+        }
+      } catch (err) {
+        console.warn('No se pudo obtener tiempo de certificacion, usando fallback', err);
+      }
+      // --- 1. Establece la fecha de finalización ---
+      // La cuenta regresiva terminará en 'minutos' a partir de ahora.
+      const countDownDate = Date.now() + minutos * 60 * 1000;
+
+      // --- 2. Actualiza el contador cada segundo ---
+      const x = setInterval(function() {
+
+        // --- 3. Obtiene la fecha y hora actual ---
+        const now = new Date().getTime();
+        // --- 4. Calcula la distancia que falta ---
+        const distance = countDownDate - now;
+
+        // --- 5. Cálculos de tiempo para días, horas, minutos y segundos ---
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutesLeft = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // --- 6. Muestra el resultado en el HTML ---
+        // Busca los elementos por su ID y les pone el valor calculado.
+        const elH = document.getElementById("hours");
+        const elM = document.getElementById("minutes");
+        const elS = document.getElementById("seconds");
+        if (elH) elH.innerText = String(hours).padStart(2, '0');
+        if (elM) elM.innerText = String(minutesLeft).padStart(2, '0');
+        if (elS) elS.innerText = String(seconds).padStart(2, '0');
+
+        // --- 7. (Opcional) ¿Qué hacer cuando termine? ---
+        // Si la distancia es menor que 0, el contador terminó.
+        if (distance < 0) {
+          clearInterval(x); // Detiene el intervalo
+          const cd = document.getElementById("countdown");
+          if (cd) {
+            cd.classList.add('ended');
+            cd.innerHTML = "¡TIEMPO TERMINADO!";
+          }
+          // Enviar el formulario automáticamente cuando termine el tiempo
+          const submitBtn = form.querySelector('button[type="submit"]');
+          if (submitBtn) submitBtn.click();
+        }
+      }, 1000);
+    })();
   }
 
   // ---- Enviar examen ----
