@@ -1,8 +1,14 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const token = localStorage.getItem("token");
+  // Read token from the shared `session` object saved by auth.js
+  let ses = null;
+  try {
+    ses = JSON.parse(localStorage.getItem("session") || "null");
+  } catch (err) {
+    ses = null;
+  }
+  const token = ses?.token || null;
   const form = document.getElementById("examForm");
   const container = document.getElementById("questions-container");
-
   if (!token) {
     Swal.fire("No autorizado", "Por favor inicia sesión antes de comenzar el examen.", "warning")
       .then(() => window.location.href = "./login.html");
@@ -10,7 +16,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    const res = await fetch("/api/exam/start", {
+    // Use API_URL from ../js/api.js (must be loaded before this script)
+    const res = await fetch(`${API_URL}/exam/start`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
