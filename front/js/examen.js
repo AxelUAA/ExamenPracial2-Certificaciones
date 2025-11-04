@@ -93,26 +93,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             <b>Respuestas correctas:</b> ${data.score}/${data.total}
           `,
           icon: data.aprobado ? "success" : "error"
-        }).then(() => {
-          // Update local session so the UI knows the user passed/has certificate
-          try {
-            if (ses && ses.user) {
-              ses.user.aprobado = data.aprobado;
-              ses.user.calificacion = data.calificacion;
-              // marca que tiene certificado para mostrar botón de descarga
-              if (data.aprobado) ses.user.tieneCertificado = true;
-              localStorage.setItem("session", JSON.stringify(ses));
-            }
-          } catch (e) {
-            console.warn("No se pudo actualizar session local:", e);
-          }
-          // If approved, redirect to certificaciones and trigger download automatically
-          if (data.aprobado) {
-            window.location.href = "./certificaciones.html?download=1";
-          } else {
-            window.location.href = "./certificaciones.html";
-          }
-        });
+        }).then(() => window.location.href = "./certificaciones.html");
       } else {
         Swal.fire("Error", data.message || "No se pudo enviar el examen", "error");
       }

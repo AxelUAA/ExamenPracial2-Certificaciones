@@ -31,7 +31,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         <div class="acciones">
           <button class="btn pagar" ${!activa ? "disabled" : ""} data-id="${cert.id}">Pagar</button>
           <button class="btn iniciar" ${!activa ? "disabled" : ""} data-id="${cert.id}">Iniciar Examen</button>
-          ${usuario && (usuario.tieneCertificado || usuario.aprobado) && activa ? `<button class="btn descargar" data-id="${cert.id}">Descargar certificado</button>` : ""}
         </div>
 
         ${!activa ? `<p class="fecha">${fechas[i - 1]}</p>` : ""}
@@ -46,47 +45,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.querySelectorAll(".iniciar").forEach(btn =>
       btn.addEventListener("click", iniciarExamen)
     );
-    // attach download handlers if present
-    document.querySelectorAll(".descargar").forEach(btn =>
-      btn.addEventListener("click", descargarCertificado)
-    );
 
   } catch (err) {
     console.error(err);
     contenedor.innerHTML = `<p style="color:red;">Error al cargar certificaciones 😢</p>`;
-  }
-
-  async function descargarCertificado(e) {
-    const id = e.target.dataset.id;
-    if (!usuario || !token) {
-      return Swal.fire({ icon: "warning", title: "Inicia sesión", text: "Debes iniciar sesión para descargar el certificado." });
-    }
-
-    try {
-      const res = await fetch(`${API_URL}/certificate/download?certId=${id}`, {
-        method: "GET",
-        headers: { Authorization: "Bearer " + token }
-      });
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        return Swal.fire({ icon: "error", title: "Error", text: err.error || "No se pudo descargar el certificado." });
-      }
-
-      const blob = await res.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `certificado_${usuario.cuenta || 'user'}.pdf`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url);
-
-    } catch (err) {
-      console.error(err);
-      Swal.fire({ icon: "error", title: "Error", text: "No se pudo conectar con el servidor." });
-    }
   }
 
   // === Funciones ===
@@ -189,22 +151,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     }).then(() => {
       window.location.href = "examen.html";
     });
-  }
-
-  // If redirected after passing the exam, auto-download the certificate
-  try {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("download") === "1") {
-      // only attempt if user and token and certificacion activa
-      const activaId = 1;
-      if (usuario && token && (usuario.tieneCertificado || usuario.aprobado)) {
-        // call the same function used by the button
-        descargarCertificado({ target: { dataset: { id: String(activaId) } } });
-        // remove query param to avoid repeated downloads on refresh
-        history.replaceState(null, '', window.location.pathname);
-      }
-    }
-  } catch (e) {
-    console.warn('Auto-download falló:', e);
   }
 });

@@ -135,14 +135,7 @@ const enviarExamen = (req, res) => {
   attempt.submitted = true;
   attempt.calificacion = calificacion;
   attempt.aprobado = aprobado;
-  // 7. Guardar resultado en el perfil del usuario (simulación de BD)
-  const user = USERS.find(u => u.id === userId);
-  if (user) {
-    user.calificacion = calificacion;
-    user.aprobado = aprobado;
-    // Puedes añadir un flag que permita descargar certificado
-    if (aprobado) user.tieneCertificado = true;
-  }
+
   // (En un proyecto real, aquí guardarías 'calificacion' y 'aprobado' 
   // en el perfil del usuario en la BD).
 

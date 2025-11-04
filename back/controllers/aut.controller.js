@@ -1,9 +1,7 @@
 // back/controllers/aut.controller.js
 const crypto = require("crypto");
-const jwt = require("jsonwebtoken");
-const USERS = require("../data/users");
-// secret for signing JWTs; in production use env var
-const JWT_SECRET = process.env.JWT_SECRET || "dev_secret_change_me";
+const USERS = require("../data/users");      // <- carga users.json (Node resuelve .json)
+const SESSIONS = require("../data/sessions"); // <- arreglo en memoria (sessions.js)
 
 // POST /api/auth/login
 const login = (req, res) => {
@@ -20,8 +18,8 @@ const login = (req, res) => {
       return res.status(401).json({ error: "Credenciales inválidas" });
     }
 
-    // Create a signed JWT instead of an in-memory session token
-    const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: "8h" });
+    const token = crypto.randomUUID();
+    SESSIONS.push({ token, userId: user.id, createdAt: Date.now() });
 
     // Devuelve SOLO lo necesario al front, siguiendo tu estilo
     return res.status(200).json({
@@ -42,10 +40,15 @@ const login = (req, res) => {
 
 // POST /api/auth/logout  (opcional ya desde el punto 1; si prefieres lo vemos en el 2)
 const logout = (req, res) => {
-  // With JWT we can't invalidate existing tokens server-side without a blacklist.
-  // For simplicity, just respond OK and let the client remove token from localStorage.
   try {
     console.log("Acceso a /api/auth/logout");
+    const auth = req.headers.authorization || "";
+    const [scheme, token] = auth.split(" ");
+    if (scheme !== "Bearer" || !token) {
+      return res.status(401).json({ error: "Authorization header inválido" });
+    }
+    const idx = SESSIONS.findIndex(s => s.token === token);
+    if (idx >= 0) SESSIONS.splice(idx, 1);
     return res.status(200).json({ message: "Sesión cerrada" });
   } catch (err) {
     console.error("logout error:", err);
