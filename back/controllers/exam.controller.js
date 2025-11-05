@@ -1,7 +1,11 @@
 const crypto = require("crypto"); // Para generar IDs de intento únicos
+const path = require("path");
+const { readJson, writeJsonAtomic } = require("../utils/fileUtil");
 const ALL_QUESTIONS = require("../data/questions");
 const USERS = require("../data/users"); // Tu "base de datos" de usuarios
 const CERTIFICATIONS = require("../data/certificaciones");
+
+const USERS_FILE_PATH = path.join(__dirname, "../data/users.json");
 
 // --- Almacén en memoria para intentos de examen ---
 // Estructura: Map<attemptId, { userId, correctAnswers, submitted, certificationId }>
@@ -68,9 +72,14 @@ const iniciarExamen = (req, res) => {
     submitted: false // aun no se envia 
   });
 
-  // Se marca el usuario como que ya presentó el examen
-  user.examenPresentado = true;
-  console.log(`Usuario ${userId} marcado como examenPresentado: true`); // y lo decimos en consola
+  // Se marca el usuario como que ya presentó el examen y se guarda en el archivo
+  const users = readJson(USERS_FILE_PATH);
+  const userIndex = users.findIndex(u => u.id === userId);
+  if (userIndex !== -1) {
+    users[userIndex].examenPresentado = true;
+    writeJsonAtomic(USERS_FILE_PATH, users);
+  }
+  console.log(`Usuario ${userId} marcado como examenPresentado: true y guardado en archivo`); // y lo decimos en consola
 
   // devolver preguntas y attemptId al front
   res.status(200).json({

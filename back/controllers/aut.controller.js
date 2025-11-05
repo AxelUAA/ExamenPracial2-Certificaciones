@@ -1,7 +1,11 @@
 
 const crypto = require("crypto");
+const { readJson, writeJsonAtomic } = require("../utils/fileUtil");
+const path = require("path");
 const USERS = require("../data/users");      
 const SESSIONS = require("../data/sessions"); 
+
+const USERS_FILE_PATH = path.join(__dirname, "../data/users.json");
 
 // POST /api/auth/login
 const login = (req, res) => {
@@ -31,8 +35,8 @@ const login = (req, res) => {
         id: user.id,
         cuenta: user.cuenta,
         nameCom: user.nameCom || "",
-        pagoRealizado: !!user.pagoRealizado,
-        examenPresentado: !!user.examenPresentado
+        pagoRealizado: user.pagoRealizado,
+        examenPresentado: user.examenPresentado
       }
     });
   } catch (err) {
@@ -63,16 +67,20 @@ const logout = (req, res) => {
 function doPayment(req, res) {
   try {
     // authRequired ya colocó req.userId
-    const user = USERS.find(u => u.id === req.userId);
-    if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
-
-    if (user.pagoRealizado) {
+    const users = readJson(USERS_FILE_PATH);
+    const userIndex = users.findIndex(u => u.id === req.userId);
+    
+    if (userIndex === -1) return res.status(404).json({ error: "Usuario no encontrado" });
+    
+    if (users[userIndex].pagoRealizado) {
       return res.status(400).json({ error: "El pago ya estaba registrado" });
     }
 
-    user.pagoRealizado = true; // solo en memoria
-    console.log(`Pago registrado para userId=${user.id}`);
-    return res.json({ ok: true, userId: user.id });
+    users[userIndex].pagoRealizado = true;
+    writeJsonAtomic(USERS_FILE_PATH, users);
+    
+    console.log(`Pago registrado para userId=${req.userId}`);
+    return res.json({ ok: true, userId: req.userId });
   } catch (e) {
     console.error("payment error:", e);
     return res.status(500).json({ error: "Error al registrar pago" });
