@@ -8,9 +8,11 @@
   <link rel="stylesheet" href="../css/estilos.css">
   <link rel="stylesheet" href="../css/estilosIndex.css">
   <link rel="stylesheet" href="../css/examen.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Orden importante: config.js debe ir antes de api.js y otros scripts -->
+  <script defer src="../js/config.js"></script>
   <script defer src="../js/api.js"></script>
   <script defer src="../js/ui.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -18,7 +20,7 @@
   <header class="site-header">
     <nav class="nav container" aria-label="Principal">
       <a class="brand" href="./index.html">
-        <img class="brand__logo" src="/front/img/imagenes/logoDevBadge.png" alt="Logo de la empresa">
+        <img class="brand__logo" src="../img/imagenes/logoDevBadge.png" alt="Logo de la empresa">
         <span class="brand__name">DevBadge</span>
       </a>
       <ul class="nav__links">

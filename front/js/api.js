@@ -1,8 +1,5 @@
-// Ruta base de tu backend (ajústala si usas otro puerto)
-const API_URL = "http://localhost:3000/api";
-
-// Exportamos la URL base para que otros módulos la usen
-window.API_URL = API_URL;
+// Importa la configuración desde config.js
+// La configuración del API_URL se hace en config.js
 
 // Helper sencillo para obtener certificaciones desde el backend.
 // Explicación rápida:

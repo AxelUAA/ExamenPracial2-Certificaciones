@@ -20,6 +20,10 @@ app.use("/api/cert", certificateRoutes);
 
 // Arranque del servidor
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor escuchando en http://localhost:${PORT}`);
+// Escuchar en todas las interfaces de red (0.0.0.0) para permitir conexiones LAN
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Servidor escuchando en todas las interfaces en el puerto ${PORT}`);
+    console.log('Para acceder desde LAN, usa la IP de tu computadora. Ejemplos:');
+    console.log(`- http://192.168.1.x:${PORT}`);
+    console.log(`- http://IP_DE_TU_PC:${PORT}`);
 });
