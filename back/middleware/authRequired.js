@@ -1,16 +1,25 @@
-const SESSIONS = require("../data/sessions");
+const sessions = require("../data/sessions");
 
 module.exports = function authRequired(req, res, next) {
   try {
     const auth = req.headers.authorization || "";
     const [scheme, token] = auth.split(" ");
+    
+    // Log para debugging
+    console.log('Auth header:', auth);
+    console.log('Token received:', token);
+    
     if (scheme !== "Bearer" || !token) {
       return res.status(401).json({ error: "Authorization header inválido" });
     }
 
-    // Las sesiones están en memoria en `back/data/sessions.js` (exporta un arreglo)
-    const session = SESSIONS.find(s => s.token === token);
-    if (!session) return res.status(401).json({ error: "Token no válido" });
+    // Buscar la sesión
+    const session = sessions.findSession(token);
+    console.log('Session found:', session);
+    
+    if (!session) {
+      return res.status(401).json({ error: "Token no válido" });
+    }
 
     req.userId = session.userId;
     next();

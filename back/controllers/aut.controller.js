@@ -3,7 +3,7 @@ const crypto = require("crypto");
 const { readJson, writeJsonAtomic } = require("../utils/fileUtil");
 const path = require("path");
 const USERS = require("../data/users");      
-const SESSIONS = require("../data/sessions"); 
+const sessions = require("../data/sessions"); 
 
 const USERS_FILE_PATH = path.join(__dirname, "../data/users.json");
 
@@ -26,7 +26,8 @@ const login = (req, res) => {
     user.nameCom = nameCom;
 
     const token = crypto.randomUUID();
-    SESSIONS.push({ token, userId: user.id, createdAt: Date.now() });
+    sessions.addSession({ token, userId: user.id, createdAt: Date.now() });
+    console.log('New session created:', token);
 
     // Devuelve SOLO lo necesario al front
     return res.status(200).json({
@@ -54,8 +55,7 @@ const logout = (req, res) => {
     if (scheme !== "Bearer" || !token) {
       return res.status(401).json({ error: "Authorization header inválido" });
     }
-    const idx = SESSIONS.findIndex(s => s.token === token);
-    if (idx >= 0) SESSIONS.splice(idx, 1);
+    sessions.removeSession(token);
     return res.status(200).json({ message: "Sesión cerrada" });
   } catch (err) {
     console.error("logout error:", err);

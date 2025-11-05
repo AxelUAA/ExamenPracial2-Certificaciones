@@ -1,14 +1,9 @@
 const crypto = require("crypto"); // Para generar IDs de intento únicos
-const path = require("path");
-const { readJson, writeJsonAtomic } = require("../utils/fileUtil");
 const ALL_QUESTIONS = require("../data/questions");
-const USERS = require("../data/users"); // Tu "base de datos" de usuarios
 const CERTIFICATIONS = require("../data/certificaciones");
 
-const USERS_FILE_PATH = path.join(__dirname, "../data/users.json");
-
 // --- Almacén en memoria para intentos de examen ---
-// Estructura: Map<attemptId, { userId, correctAnswers, submitted, certificationId }>
+// Estructura: Map<attemptId, { correctAnswers, submitted, certificationId }>
 const activeAttempts = new Map();
 
 // Funcion para bajajear, se uiso el algoritmo Fisher-Yates)
@@ -23,25 +18,10 @@ function shuffleArray(array) {
 
 //Iniciar examen
 const iniciarExamen = (req, res) => {
-  // El ID de usuario viene del middleware simulado (checkAuth)
-  const userId = req.userId;
   const certificationId = 1; 
+  console.log(`Solicitud /start recibida`);
 
-  console.log(`Solicitud /start recibida para userId: ${userId}`);
-
-  
-  const user = USERS.find(u => u.id === userId); //busamos el usuario
-  if (!user) {
-    return res.status(404).json({ message: "Usuario no encontrado." });
-  }
-
-  //verifica requisitos 
-  if (!user.pagoRealizado) {
-    return res.status(403).json({ message: "Primero Paga!." });
-  }
-  if (user.examenPresentado) {
-    return res.status(403).json({ message: "Ya has presentado este examen!." });
-  }
+  // Seleccionar 8 preguntas aleatorias sin validaciones
 
   // Seleccionar 8 preguntas aleatorias
   const shuffledQuestions = shuffleArray(ALL_QUESTIONS);
@@ -65,21 +45,17 @@ const iniciarExamen = (req, res) => {
     correct: q.correct
   }));
 
+  // Log para debug
+  console.log('Selected questions:', selectedQuestions.length);
+
   activeAttempts.set(attemptId, {
-    userId,
     certificationId,
     correctAnswers,
     submitted: false // aun no se envia 
   });
 
-  // Se marca el usuario como que ya presentó el examen y se guarda en el archivo
-  const users = readJson(USERS_FILE_PATH);
-  const userIndex = users.findIndex(u => u.id === userId);
-  if (userIndex !== -1) {
-    users[userIndex].examenPresentado = true;
-    writeJsonAtomic(USERS_FILE_PATH, users);
-  }
-  console.log(`Usuario ${userId} marcado como examenPresentado: true y guardado en archivo`); // y lo decimos en consola
+  // Ya no marcamos el usuario como que presentó el examen
+  console.log('Examen iniciado exitosamente');
 
   // devolver preguntas y attemptId al front
   res.status(200).json({
@@ -92,10 +68,7 @@ const iniciarExamen = (req, res) => {
 
 // Enviar del middleware y calificar
 const enviarExamen = (req, res) => {
-  const userId = req.userId; // Del middleware de juan
-  const { attemptId, answers } = req.body; // Respuestas del team frontn 
-
-
+  const { attemptId, answers } = req.body;
   console.log(`Solicitud /submit recibida para attemptId: ${attemptId}`);
 
   //validar el intento
@@ -103,16 +76,6 @@ const enviarExamen = (req, res) => {
 
   if (!attempt) {
     return res.status(404).json({ message: "Intento de examen no encontrado o expirado." });
-  }
-
-  // validar que el intento pertenezca al usuario
-  if (attempt.userId !== userId) {
-    return res.status(403).json({ message: "No autorizado para enviar este examen." });
-  }
-
-  // validar que no se haya enviado antes
-  if (attempt.submitted) {
-    return res.status(400).json({ message: "Este examen ya fue calificado." });
   }
 
   const { correctAnswers } = attempt; // Las respuestas correctas que guardamos

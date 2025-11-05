@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Examen - DevBadge</title>
+  <link rel="icon" type="image/png" href="./img/imagenes/favicon.png">
+  <link rel="stylesheet" href="./css/estilos.css">
+  <link rel="stylesheet" href="./css/estilosIndex.css">
+  <link rel="stylesheet" href="./css/examen.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script defer src="./js/api.js"></script>
+  <script defer src="./js/examen.js"></script>
+  <script defer src="./js/ui.js"></script>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="site-header">
+    <nav class="nav container" aria-label="Principal">
+      <a class="brand" href="./index.html">
+        <img class="brand__logo" src="./img/imagenes/logoDevBadge.png" alt="Logo de la empresa">
+        <span class="brand__name">DevBadge</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="./index.html">Inicio</a></li>
+        <li><a href="./certificaciones.html">Certificaciones</a></li>
+        <li><a href="./contacto.html">Contacto</a></li>
+        <li id="nav-auth"><a href="./login.html">Iniciar sesión</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- CONTENIDO -->
+  <main class="container examen-container">
+    <h1 class="section__title">Examen de Certificación C++</h1>
+    <p id="fecha"></p>
+    <p class="intro">Responde las siguientes preguntas. ¡Tienes solo una oportunidad! 🚀</p>
+
+    <div id="exam-section">
+      <!-- Countdown timer -->
+      <div id="countdown" class="countdown">
+        <div class="time-box"><span id="hours">00</span><div class="label">Horas</div></div>
+        <div class="time-box"><span id="minutes">00</span><div class="label">Min</div></div>
+        <div class="time-box"><span id="seconds">00</span><div class="label">Seg</div></div>
+      </div>
+      <form id="examForm" class="hidden">
+        <div id="questions-container"></div>
+        <button type="submit" class="btn enviar-btn">Enviar Examen</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer__inner">
+      <p class="footer__quote">"Tu camino, tu logro, tu certificación."</p>
+      <p class="footer__rights">© <span id="anio"></span> <strong>DevBadge</strong> — Todos los derechos reservados</p>
+      <a class="footer__link" href="https://www.instagram.com/devbadge_05?igsh=MTc1NmhmNGJtaXdjdw==" target="_blank" rel="noopener">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" class="footer__icon">
+        Síguenos en Instagram
+      </a>
+    </div>
+  </footer>
+</body>
+</html>

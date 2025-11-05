@@ -12,7 +12,7 @@
     "cuenta": "juan",
     "contrasena": "7894",
     "nameCom": "",
-    "pagoRealizado": false,
+    "pagoRealizado": true,
     "examenPresentado": false
   },
   {

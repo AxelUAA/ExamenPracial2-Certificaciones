@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
       // Petición al endpoint de pago (protegido). En body enviamos idCertificacion.
-      const res = await fetch("http://localhost:3000/api/auth/payment", {
+      const res = await fetch(`${API_URL}/auth/payment`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

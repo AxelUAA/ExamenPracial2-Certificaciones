@@ -5,42 +5,37 @@
 // - Temporizador que auto-envía cuando se acaba el tiempo
 // Comentarios en español para facilitar la comprensión.
 document.addEventListener("DOMContentLoaded", async () => {
-  // Leemos la sesión guardada por `auth.js`. El formato esperado es:
-  // localStorage.session = JSON.stringify({ token, user })
-  // Aquí solo necesitamos el token para autorizar las peticiones.
-  let ses = null;
-  try {
-    ses = JSON.parse(localStorage.getItem("session") || "null");
-  } catch (err) {
-    ses = null;
-  }
-  const token = ses?.token || null;
   const form = document.getElementById("examForm");
   const container = document.getElementById("questions-container");
-  if (!token) {
-    Swal.fire("No autorizado", "Por favor inicia sesión antes de comenzar el examen.", "warning")
-      .then(() => window.location.href = "./login.html");
-    return;
-  }
 
   try {
+    console.log('Making request to:', `${API_URL}/exams/start`);
     // Llamamos al backend para iniciar el examen y crear un intento (attempt)
     // Esta ruta debe devolver un objeto con { questions, attemptId, ... }
     // Atención: esta llamada está protegida, por eso enviamos el header Authorization
-  const res = await fetch(`${API_URL}/exams/start`, {
+    const res = await fetch(`${API_URL}/exams/start`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        "Content-Type": "application/json"
       }
     });
 
     const data = await res.json();
-
+    console.log('Response status:', res.status);
+    
     if (!res.ok) {
+      console.error('Error response:', data);
       Swal.fire("Error", data.message || "No se pudieron cargar las preguntas ❌", "error");
       return;
     }
+
+    if (!data.questions || !Array.isArray(data.questions)) {
+      console.error('Invalid questions format:', data);
+      Swal.fire("Error", "Formato de preguntas inválido", "error");
+      return;
+    }
+
+    console.log('Received questions:', data.questions.length);
 
   // Una vez recibidas las preguntas, las renderizamos en el DOM
   // renderQuestions creará los inputs y arrastra la lógica del temporizador
@@ -155,8 +150,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const res = await fetch(`${API_URL}/exams/submit`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({ attemptId, answers })
       });

@@ -1,6 +1,9 @@
 // Ruta base de tu backend (ajústala si usas otro puerto)
 const API_URL = "http://localhost:3000/api";
 
+// Exportamos la URL base para que otros módulos la usen
+window.API_URL = API_URL;
+
 // Helper sencillo para obtener certificaciones desde el backend.
 // Explicación rápida:
 // - Si el usuario inició sesión guardamos token en localStorage.session
